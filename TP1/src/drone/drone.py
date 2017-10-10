@@ -5,19 +5,17 @@ Created on Wed Oct  4 10:16:37 2017
 @author: Boubacar
 """
 from enum import Enum
-class PACKAGE(Enum):
+class Package(Enum):
       LIGHT = 0
       MEDIUM = 1
       HEAVY = 2
         
-class Drone(object):
-    energy = 0.0
-   
-    def __init__(self,energy,package):
-        self.energy = energy
+class Drone(object):   
+    def __init__(self,package):
+        self.energy = 100
         self.package = package
         
-    def getEnery (self):
+    def getEnergy (self):
         return self.energy
     
     def getPackage(self):
@@ -25,9 +23,8 @@ class Drone(object):
     
     def reduceEnergy(self):
         return 
+    
     def setEnergy(self,newEnergy):
         self.energy = newEnergy
-        
-    def setPackage(self):
-        return 
+
     
