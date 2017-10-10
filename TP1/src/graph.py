@@ -1,10 +1,11 @@
 """
-Created on Wed Oct  4 10:12:43 2017
-
-@author: Boubacar
+@author: Boubacar, Abderahmane, Leandre
 """
 from collections import defaultdict
 from node import Node
+
+class Graph:
+    pass
 
 class GraphDrone:
     def __init__(self, file_name):
@@ -44,3 +45,8 @@ class GraphDrone:
 class GraphDessert:
     def __init__(self):
         pass
+
+    def parse_file(self):
+        pass
+
+

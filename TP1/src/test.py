@@ -1,3 +1,6 @@
+"""
+@author: Boubacar, Abderahmane, Leandre
+"""
 from graph import GraphDrone
 from dijkstra import *
 

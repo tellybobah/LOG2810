@@ -1,3 +1,6 @@
+"""
+@author: Boubacar, Abderahmane, Leandre
+"""
 import math
 
 def shortest_path(graph, start, end, drone):
