@@ -15,19 +15,22 @@ def shortest_path(graph, start, end, drone):
 
     while end not in visited:
         curr_node = closest_node(remaining_nodes)
-        print('current node', curr_node)
         update_neighbours(curr_node, connections, remaining_nodes, visited)
         visited.update({curr_node:remaining_nodes.pop(curr_node)})
 
-    print('visited:', visited)
-    print('last node:',remaining_nodes)
-    #return (path, path_distance)
-    #return false
+
+    last = end
+    path.append(last)
+    while last != start:
+        last = visited[last][1]
+        path.append(last)
+
+    return (path, visited[end][0])
+
 
 def update_neighbours(curr_node, connections, remaining_nodes, visited):
     neighbours = connections[curr_node]
     for neighbour, distance in neighbours.items():
-        print(neighbour)
         if neighbour in visited:
             continue
         old_dist = remaining_nodes[neighbour][0]
@@ -42,4 +45,3 @@ def update_neighbours(curr_node, connections, remaining_nodes, visited):
 
 def closest_node(remaining_nodes):
     return min(remaining_nodes.items(), key=lambda x: x[1][0])[0]
-

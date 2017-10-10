@@ -4,4 +4,6 @@ from dijkstra import *
 g = GraphDrone('drone/arrondissements.txt')
 #g.display()
 
-shortest_path(g, 1, 5, None)
+path, distance = shortest_path(g, 2, 5, None)
+print('Path:', path)
+print('Distance:', distance)
