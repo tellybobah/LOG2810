@@ -20,7 +20,7 @@ class GraphDrone:
                     break
                 else:
                     node, isStation = map(int, line.strip().split(','))
-                    self.connections.update({node:[]})
+                    self.connections.update({node:{}})
                     if isStation == '1':
                         self.list_stations.add(node)
 
@@ -29,8 +29,8 @@ class GraphDrone:
                     break
                 else:
                     node1, node2, distance = map(int, line.strip().split(','))
-                    self.connections[node1].append((node2, distance))
-                    self.connections[node2].append((node1, distance))                    
+                    self.connections[node1].update({node2: distance})
+                    self.connections[node2].update({node1: distance})                    
 
     def getNeighbours(self, node):
         return self.connections[node]
