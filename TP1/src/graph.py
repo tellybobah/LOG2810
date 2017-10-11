@@ -1,13 +1,12 @@
 """
 @author: Boubacar, Abderahmane, Leandre
 """
-from collections import defaultdict
 from node import Node
 
 class Graph:
     pass
 
-class GraphDrone:
+class GraphDrone(Graph):
     def __init__(self, file_name):
         #self.connections = defaultdict(list)
         self.connections = {}
@@ -20,9 +19,9 @@ class GraphDrone:
                 if line == '\n':
                     break
                 else:
-                    node, isStation = map(int, line.strip().split(','))
+                    node, is_station = map(int, line.strip().split(','))
                     self.connections.update({node:{}})
-                    if isStation == '1':
+                    if is_station == '1':
                         self.list_stations.add(node)
 
             for line in file:
@@ -42,7 +41,7 @@ class GraphDrone:
 
         print('List of stations:', self.list_stations)
 
-class GraphDessert:
+class GraphDessert(Graph):
     def __init__(self):
         pass
 
