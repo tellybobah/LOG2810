@@ -20,8 +20,9 @@ class GraphDrone(Graph):
                     break
                 else:
                     node, is_station = map(int, line.strip().split(','))
-                    self.connections.update({node:{}})
-                    if is_station == '1':
+                    self.connections.update({Node(node):{}})
+                    #print('Hash Debug', hash(Node(node,'')), hash(node))
+                    if is_station == 1:
                         self.list_stations.add(node)
 
             for line in file:
@@ -38,8 +39,10 @@ class GraphDrone(Graph):
     def display(self):
         for node, neighbours in self.connections.items():
             print(node, ':', neighbours)
-
         print('List of stations:', self.list_stations)
+
+    def generate_matix():
+        pass
 
 class GraphDessert(Graph):
     def __init__(self):

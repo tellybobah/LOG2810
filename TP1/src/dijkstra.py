@@ -2,25 +2,26 @@
 @author: Boubacar, Abderahmane, Leandre
 """
 import math
+from util import timeit
 
+@timeit
 def shortest_path(graph, start, end, drone):
     path = []
     path_distance = 0
     visited = dict()
     remaining_nodes = dict()
     connections = graph.connections
+    nodes = connections.keys()
 
     for node in connections.keys():
         remaining_nodes.update({node:(math.inf, None)})
-
+        
     remaining_nodes[start] = (0, None)
-
 
     while end not in visited:
         curr_node = closest_node(remaining_nodes)
         update_neighbours(curr_node, connections, remaining_nodes, visited)
         visited.update({curr_node:remaining_nodes.pop(curr_node)})
-
 
     last = end
     path.append(last)
@@ -45,6 +46,7 @@ def update_neighbours(curr_node, connections, remaining_nodes, visited):
 
         if new_dist < old_dist:
             remaining_nodes[neighbour] = (new_dist, curr_node)
+
 
 def closest_node(remaining_nodes):
     return min(remaining_nodes.items(), key=lambda x: x[1][0])[0]
