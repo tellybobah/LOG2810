@@ -10,11 +10,15 @@ from node import Node
 g = GraphDrone('drone/arrondissements.txt')
 #g.display()
 
-path, distance = shortest_path(g, Node(2), Node(5), None)
+def ex1():
+    path, distance = shortest_path(g, Node(2), Node(5), None)
+    print('Path:')
+    for n in reversed(path):
+        print(n, '-> ', end='')
 
-#mettre dans une fonction?
-print('Path:')
-for n in reversed(path):
-    print(n, '-> ', end='')
+    print('Distance:', distance)
 
-print('Distance:', distance)
+ex1()
+#g.plot()
+
+
