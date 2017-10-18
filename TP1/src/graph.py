@@ -77,10 +77,26 @@ class GraphDrone(Graph):
         plt.show() 
 
 class GraphDessert(Graph):
-    def __init__(self):
-        pass
+    def __init__(self, file_name):
+        self.connections = {}
+        self.parse_file(file_name)
 
-    def parse_file(self):
-        pass
+    def parse_file(self, file_name):
+        with open(file_name) as file:
+            for line in file:
+                if line == '\n':
+                    break
+                else:
+                    currentLine = line.split(",")
+                    nodeID = int(currentLine[0])
+                    name = currentLine[1]
+                    self.connections.update({Node(nodeID, name):[]})
+
+            for line in file:
+                if line == '\n':
+                    break
+                else:
+                    node1, node2 = map(int, line.strip().split(','))
+                    self.connections[node1].append(node2)
 
 
