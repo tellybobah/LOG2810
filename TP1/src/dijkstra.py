@@ -5,7 +5,7 @@ import math
 from util import timeit
 
 @timeit
-def shortest_path(graph, start, end, drone):
+def shortest_path(graph, start, end, drone, list_stations):
     path = []
     path_distance = 0
     visited = dict()
@@ -20,8 +20,10 @@ def shortest_path(graph, start, end, drone):
 
     while end not in visited:
         curr_node = closest_node(remaining_nodes)
-        update_neighbours(curr_node, connections, remaining_nodes, visited)
+        update_neighbours(curr_node, connections, remaining_nodes, visited, drone, list_stations)
         visited.update({curr_node:remaining_nodes.pop(curr_node)})
+        print(*remaining_nodes)
+        print(*visited)
 
     last = end
     path.append(last)
@@ -32,7 +34,7 @@ def shortest_path(graph, start, end, drone):
     return (path, visited[end][0])
 
 
-def update_neighbours(curr_node, connections, remaining_nodes, visited):
+def update_neighbours(curr_node, connections, remaining_nodes, visited, drone, list_stations):
     neighbours = connections[curr_node]
     for neighbour, distance in neighbours.items():
         if neighbour in visited:
@@ -44,8 +46,16 @@ def update_neighbours(curr_node, connections, remaining_nodes, visited):
 
         new_dist = dist_from_start + dist_from_node
 
+        if drone.predictEnergy(dist_from_node) < 20:
+            #TODO : recalculer l'energie selon le chemin qu'il a 
+            print("Predicted energy: ", drone.predictEnergy(dist_from_node))
+            new_dist = math.inf
+        elif neighbour in list_stations:
+            new_dist += 20
+
         if new_dist < old_dist:
             remaining_nodes[neighbour] = (new_dist, curr_node)
+            
 
 
 def closest_node(remaining_nodes):

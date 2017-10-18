@@ -4,6 +4,10 @@ Created on Wed Oct  4 10:16:37 2017
 
 @author: Boubacar
 """
+
+def testxksk():
+    print("dkosdkow")
+    
 from enum import Enum
 class Package(Enum):
       LIGHT = 0
@@ -26,7 +30,7 @@ class Drone(object):
 
 class Drone3Amp(Drone):
     def __init__(self,package):
-        super(Drone3Amp, self).__init__(package)
+        super(Drone3Amp,self).__init__(package)
         
     def reduceEnergy(self, time):
         self.energy = self.predictEnergy(time)
@@ -40,7 +44,7 @@ class Drone3Amp(Drone):
         elif self.package == Package.HEAVY:
             delta = 4
 
-        return time * delta
+        return self.energy - (time * delta)
     
 class Drone5Amp(Drone):
     def __init__(self,package):
@@ -58,5 +62,5 @@ class Drone5Amp(Drone):
         elif self.package == Package.HEAVY:
             delta = 2.5
 
-        return time * delta
+        return self.energy - (time * delta)
     
