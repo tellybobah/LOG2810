@@ -60,3 +60,13 @@ def update_neighbours(curr_node, connections, remaining_nodes, visited, drone, l
 
 def closest_node(remaining_nodes):
     return min(remaining_nodes.items(), key=lambda x: x[1][0])[0]
+
+def calculateEnergyToNode(start, current_node, visited, list_stations, drone):
+    drone.setEnergy(100)
+    last = current_node
+    temp_dist = current_node[1] - visited[current_node[0]][0]
+    drone.reduceEnergy(temp_dist)
+    while last != start or last is not in list_stations:
+        last = visited[last][1]
+        temp_dist = last[1] - visited[last[0]][0]
+        reduceEnergy(temp_dist)
