@@ -9,10 +9,10 @@ from drone import Drone, Package
 
 class Drone3Amp(Drone):
 
-    def _init_(self):
-        pass
-
     def reduceEnergy(self, time):
+        self.energy = self.predictEnergy(time)
+
+    def predictEnergy(self, time):
         delta = 0
         if self.package == Package.LIGHT:
             delta = 1
@@ -21,4 +21,4 @@ class Drone3Amp(Drone):
         elif self.package == Package.HEAVY:
             delta = 4
 
-        self.energy -= time * delta
+        return time * delta

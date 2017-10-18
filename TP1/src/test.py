@@ -2,10 +2,14 @@
 @author: Boubacar, Abderahmane, Leandre
 """
 import util
+import sys
 from graph import GraphDrone
 from dijkstra import *
 from util import timeit
 from node import Node
+
+sys.path.insert(0, '/drone/')
+from drone import *
 
 g = GraphDrone('drone/arrondissements.txt')
 #g.display()
@@ -20,5 +24,9 @@ def ex1():
 
 ex1()
 #g.plot()
+
+d = Drone3Amp(Package.LIGHT)
+
+print(d.getEnergy())
 
 

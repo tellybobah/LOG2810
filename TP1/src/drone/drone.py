@@ -21,10 +21,42 @@ class Drone(object):
     def getPackage(self):
         return self.package
     
-    def reduceEnergy(self):
-        return 
-    
     def setEnergy(self,newEnergy):
         self.energy = newEnergy
 
+class Drone3Amp(Drone):
+    def __init__(self,package):
+        super(Drone3Amp, self).__init__(package)
+        
+    def reduceEnergy(self, time):
+        self.energy = self.predictEnergy(time)
+
+    def predictEnergy(self, time):
+        delta = 0
+        if self.package == Package.LIGHT:
+            delta = 1
+        elif self.package == Package.MEDIUM:
+            delta = 2
+        elif self.package == Package.HEAVY:
+            delta = 4
+
+        return time * delta
+    
+class Drone5Amp(Drone):
+    def __init__(self,package):
+        super(Drone5Amp, self).__init__(package)
+        
+    def reduceEnergy(self, time):
+        self.energy = self.predictEnergy(time)
+
+    def predictEnergy(self, time):
+        delta = 0
+        if self.package == Package.LIGHT:
+            delta = 1
+        elif self.package == Package.MEDIUM:
+            delta = 1.5
+        elif self.package == Package.HEAVY:
+            delta = 2.5
+
+        return time * delta
     
