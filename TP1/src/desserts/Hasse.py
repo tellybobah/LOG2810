@@ -10,13 +10,20 @@ class Hasse:
       
     def removeRelexivity(self, connections):
         for node in connections:
-            if (self.isInRelation(connections,node,node)):
-                connections[nodes].remove(connectedNode)
-                    
             
+                    
+        
     def removeTransitivity(self, connections):
         for node in connections:
-            for connectedNode in connections[node]:
-                for ()
+            commonNodes = connection[node]
+            for connectedNode in connection[node] : 
+                connection = getConnectedNode(connections,connectedNode)
+                commonNodes = list(set(connectedNodes).intersection(connection)) #prendre les elements en commun
+                
     
     def printHasse(self, connections):
+        
+    def findCommonElements(self,list1,list2):
+        
+    def getConnectedNode(self,connections,node):
+        return connections[node]
