@@ -108,7 +108,7 @@ class GraphDessert(Graph):
                 else:
                     currentLine = line.split(",")
                     nodeID = int(currentLine[0])
-                    name = currentLine[1]
+                    name = currentLine[1].strip()
                     self.connections.update({Node(nodeID, name):[]})
 
             for line in file:
@@ -117,5 +117,12 @@ class GraphDessert(Graph):
                 else:
                     node1, node2 = map(int, line.strip().split(','))
                     self.connections[node1].append(node2)
-
+                    
+    def get_name(self, ID):
+        nodes = self.connections.keys()
+        for node in nodes:
+            if node == ID:
+                return node.name
+        
+        
 

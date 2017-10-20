@@ -2,17 +2,15 @@
 @author: Boubacar, Abderahmane, Leandre
 """
 
-import util
 from graph import *
 from dijkstra import *
-from util import timeit
 from node import Node
 from drone import *
 from hasse import Hasse
 
     
 def ex2():
-    g1 = GraphDessert('desserts/manger.txt')
+    g1 = GraphDessert('recette/manger.txt')
     Has = Hasse()
     test_trans = dict()
     test_trans[1] = [4,6] 
@@ -25,7 +23,7 @@ def ex2():
     #print(*g1.connections)
     Has.remove_transitivity(g1.connections)
     #Has.removeTransitivity(test_trans)
-    Has.print_hasse(g1.connections)
+    Has.print_hasse(g1, g1.connections)
 
 ex2()
 

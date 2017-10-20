@@ -61,7 +61,8 @@ def menu_recettes():
         user_input = input()
         
         if user_input == 'a':
-            dessert_map = GraphDessert('desserts/manger.txt')
+            dessert_map = GraphDessert('recette/manger.txt')
+            #TODO: Ajouter un display du graphe apres lecture, sans reduction
             #dessert_map.display()
         elif user_input == 'b':
             #generate_hasse()
