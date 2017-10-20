@@ -22,15 +22,15 @@ class Hasse:
             #print(connections[node])
             commonNodes = connections[node]
             for connectedNode in connections[node] : 
-                connection = self.getConnectedNode(connections,connectedNode)
+                connection = self.get_connected_node(connections,connectedNode)
                 commonNodes = list(set(commonNodes).intersection(connection)) #prendre les elements en commun
                 connections[node] = list(set(connections[node])- set(commonNodes))
             print("connection",connections[node])
     
-    def printHasse_rec(self,connections, node, parent_node):
+    def print_hasse_rec(self,connections, node, parent_node):
         
     
-    def printHasse(self, connections):
+    def print_hasse(self, connections):
         list_temp = []
         for node in connections:
             if len(connections[node]) == 0:
@@ -44,5 +44,5 @@ class Hasse:
                 result.append(aNode)
         return result        
         
-    def getConnectedNode(self,connections,node):
+    def get_connected_node(self,connections,node):
         return connections[node]
