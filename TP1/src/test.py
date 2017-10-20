@@ -1,27 +1,21 @@
 """
 @author: Boubacar, Abderahmane, Leandre
 """
-import util
 from graph import GraphDrone
-from dijkstra import *
-from util import timeit
+from dijkstra import Dijkstra
+from drone import Package
 from node import Node
-from drone import *
 
 #g.display()
 
 def ex1():
-    drone = Drone3Amp(Package.LIGHT)
     g = GraphDrone('drone/arrondissements.txt')
-    path, distance = shortest_path(g, Node(15), Node(2), drone, g.list_stations)
-    print('Path:')
-    for n in reversed(path):
-        print(n, '-> ', end='')
-
-    print('Distance:', distance)
+    d = Dijkstra(g)
+    start_node = Node(8)
+    end_node = Node(17)
+    d.solution(start_node,end_node, Package.LIGHT)
+    
 
 ex1()
-
-print(d.getEnergy())
 
 

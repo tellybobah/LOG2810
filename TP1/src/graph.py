@@ -6,39 +6,58 @@ from node import Node
 import numpy as np
 import networkx as nx
 import matplotlib.pyplot as plt
+from itertools import takewhile
 
 class Graph:
     pass
 
 class GraphDrone(Graph):
     def __init__(self, file_name):
-        #self.connections = defaultdict(list)
-        self.connections = {}
-        self.list_stations = set()
-        self.parse_file(file_name)
+        node_lines, edge_lines = self.parse_file(file_name)
+        self.create_graph(node_lines, edge_lines)
 
-    def parse_file(self,file_name):
+    def parse_file(self, file_name):
         with open(file_name) as file:
-            for line in file:
-                if line == '\n':
-                    break
-                else:
-                    node, is_station = map(int, line.strip().split(','))
-                    self.connections.update({Node(node):{}})
-                    #print('Hash Debug', hash(Node(node,'')), hash(node))
-                    if is_station == 1:
-                        self.list_stations.add(node)
+            node_lines = list(takewhile(lambda x : x != '\n', file))
+            edge_lines = list(takewhile(lambda x : x != '\n', file))
+            return node_lines, edge_lines
 
-            for line in file:
-                if line == '\n':
-                    break
-                else:
-                    node1, node2, distance = map(int, line.strip().split(','))
-                    self.connections[node1].update({node2: distance})
-                    self.connections[node2].update({node1: distance})                    
+    def create_graph(self, node_lines, edge_lines):
+        self.connections = dict()
+        self.list_stations = set()
+        for line in node_lines:
+            node, is_station = map(int, line.strip().split(','))
+            self.add_node(node)
+            if is_station == 1:
+                self.add_station(node)
 
-    def getNeighbours(self, node):
+        for line in edge_lines:
+            node1, node2, distance = map(int, line.strip().split(','))
+            self.add_edge(node1, node2, distance)
+            self.add_edge(node2, node1, distance)
+
+    def add_node(self, node):
+        self.connections.update({Node(node):{}})
+
+    def add_edge(self, node1, node2, distance):
+        self.connections[node1].update({Node(node2): distance})
+
+    def add_station(self, node):
+        self.list_stations.add(node)
+
+    def get_neighbours(self, node):
         return self.connections[node]
+
+    def get_nodes(self):
+        return self.connections.keys()
+
+    def get_edges(self):
+        edges = []
+        for node1, neighbours in self.connections.items():
+            for node2, distance in neighbours.items():
+                edge = (node1, node2, distance)
+                edges.append(edge)
+        return edges
 
     def display(self):
         for node, neighbours in self.connections.items():
