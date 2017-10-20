@@ -16,7 +16,7 @@ class Node(object) :
         return self.name
 
     def __str__(self):
-        return '({} - \'{}\')'.format(self.ID, self.name)
+        return '(\'{}\' - {})'.format(self.name, self.ID)
 
     def __hash__(self):
         return hash(self.ID)

@@ -5,8 +5,6 @@ Created on Wed Oct  4 10:16:37 2017
 @author: Boubacar
 """
 
-def testxksk():
-    print("dkosdkow")
     
 from enum import Enum
 class Package(Enum):
@@ -33,7 +31,7 @@ class Drone3Amp(Drone):
         super(Drone3Amp,self).__init__(package)
         
     def reduceEnergy(self, time):
-        self.energy = self.predictEnergy(time)
+        self.energy -= self.predictEnergy(time)
 
     def predictEnergy(self, time):
         delta = 0
@@ -44,14 +42,14 @@ class Drone3Amp(Drone):
         elif self.package == Package.HEAVY:
             delta = 4
 
-        return self.energy - (time * delta)
+        return (time * delta)
     
 class Drone5Amp(Drone):
     def __init__(self,package):
         super(Drone5Amp, self).__init__(package)
         
     def reduceEnergy(self, time):
-        self.energy = self.predictEnergy(time)
+        self.energy -= self.predictEnergy(time)
 
     def predictEnergy(self, time):
         delta = 0
@@ -62,5 +60,5 @@ class Drone5Amp(Drone):
         elif self.package == Package.HEAVY:
             delta = 2.5
 
-        return self.energy - (time * delta)
+        return (time * delta)
     

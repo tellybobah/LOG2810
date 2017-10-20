@@ -1,6 +1,7 @@
 """
 @author: Boubacar, Abderahmane, Leandre
 """
+<<<<<<< HEAD
 import util
 from graph import *
 #from dijkstra import *
@@ -39,5 +40,23 @@ def ex2():
 #ex1()
 ex2()
 #print(d.getEnergy())
+=======
+from graph import GraphDrone
+from dijkstra import Dijkstra
+from drone import Package
+from node import Node
+
+#g.display()
+
+def ex1():
+    g = GraphDrone('drone/arrondissements.txt')
+    d = Dijkstra(g)
+    start_node = Node(8)
+    end_node = Node(17)
+    d.solution(start_node,end_node, Package.LIGHT)
+    
+
+ex1()
+>>>>>>> cfef297a9fa8d5534588652c6a4d455020bd6009
 
 
