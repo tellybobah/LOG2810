@@ -4,7 +4,7 @@ Created on Wed Oct  4 10:10:10 2017
 
 @author: Boubacar
 """
-class Node(object) : 
+class Node() : 
     def __init__(self,ID,name=''):
         self.ID = ID
         self.name = name
@@ -16,7 +16,10 @@ class Node(object) :
         return self.name
 
     def __str__(self):
-        return '(\'{}\' - {})'.format(self.name, self.ID)
+        if self.name is None:
+            return str(self.ID)
+        else:
+            return '\'{}\'-{}'.format(self.name, self.ID)
 
     def __hash__(self):
         return hash(self.ID)

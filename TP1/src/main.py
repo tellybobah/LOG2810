@@ -7,12 +7,12 @@ Created on Wed Oct 18 11:35:05 2017
 
 from graph import *
 from dijkstra import *
+from hasse import *
 from drone import Package
-from node import Node
 
 def menu_drones():
     drone_map = GraphDrone('drone/arrondissements.txt')
-    user_input = 'd'
+    user_input = None
     while(user_input != 'c'):
         print("(a) Mettre a jour la carte")
         print("(b) Determiner le plus court chemin securitaire")
@@ -46,14 +46,12 @@ def menu_drones():
                 dijk.solution(debut, fin, package)    
             else:
                 print("Desole, impossible de calculer le chemin")
-        elif user_input == 'c':
-            pass
         else:
             print("Mauvaise entree")
 
 def menu_recettes():
-    dessert_map = GraphDessert('desserts/manger.txt')
-    user_input = 'd'
+    dessert_map = GraphDessert('recette/manger.txt')
+    user_input = None
     while(user_input != 'c'):
         print("(a) Creer et afficher le graphe de recettes")
         print("(b) Generer et afficher le diagramme de Hasse")
@@ -63,22 +61,19 @@ def menu_recettes():
         if user_input == 'a':
             dessert_map = GraphDessert('recette/manger.txt')
             #TODO: Ajouter un display du graphe apres lecture, sans reduction
-            #dessert_map.display()
+            dessert_map.display()
         elif user_input == 'b':
-            #generate_hasse()
-            pass
-        elif user_input == 'c':
-            pass
+            hasse_diagram = Hasse(dessert_map)
+            hasse_diagram.remove_relexivity()
+            hasse_diagram.remove_transitivity()
+            hasse_diagram.print_hasse()
         else:
             print("Mauvaise entree")
-        
-
 
 def main():
     user_input = 'd'
     
     while(user_input != 'c'):
-        
         print("(a) Drones")
         print("(b) Recettes")
         print("(c) Quitter")
@@ -93,5 +88,5 @@ def main():
         else:
             print("Mauvaise entree")
             
-            
-main()
+if __name__ == "__main__":
+    main()

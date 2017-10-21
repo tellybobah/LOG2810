@@ -8,6 +8,7 @@ class Dijkstra:
     def __init__(self, graph):
         self.graph = graph
 
+    #Tries to find a path with the 3amp drone and the 5amp drone if there was no solution
     def solution(self, start_node, end_node, package):
         drone_3 = Drone3Amp(package)
         path, temp, energy_left = self.shortest_path(start_node, end_node, drone_3)
@@ -70,7 +71,8 @@ class Dijkstra:
             #3
             visited_nodes.update({curr_node:remaining_nodes.pop(curr_node)})
         
-        #Fin de lalgorithme
+        #End of the algorithm
+        #Return the path or false if there is no path
         path = self.generate_final_path(start_node, end_node, visited_nodes)
         if not path:
             return (False, 0, 0)
