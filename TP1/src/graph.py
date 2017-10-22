@@ -4,10 +4,7 @@
 from node import Node
 from itertools import takewhile
 
-class Graph:
-    pass
-
-class GraphDrone(Graph):
+class GraphDrone:
     def __init__(self, file_name):
         node_lines, edge_lines = self.parse_file(file_name)
         self.create_graph(node_lines, edge_lines)
@@ -61,7 +58,7 @@ class GraphDrone(Graph):
             print(node, ':', *neighbours)
         print('List of stations:', self.list_stations)
 
-class GraphDessert(Graph):
+class GraphRecette:
     def __init__(self, file_name):
         node_lines, edge_lines = self.parse_file(file_name)
         self.create_graph(node_lines, edge_lines)        

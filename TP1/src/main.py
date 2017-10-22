@@ -50,7 +50,7 @@ def menu_drones():
             print("Mauvaise entree")
 
 def menu_recettes():
-    dessert_map = GraphDessert('recette/manger.txt')
+    recette_map = GraphRecette('recette/manger.txt')
     user_input = None
     while(user_input != 'c'):
         print("(a) Creer et afficher le graphe de recettes")
@@ -59,14 +59,15 @@ def menu_recettes():
         user_input = input()
         
         if user_input == 'a':
-            dessert_map = GraphDessert('recette/manger.txt')
-            #TODO: Ajouter un display du graphe apres lecture, sans reduction
-            dessert_map.display()
+            recette_map = GraphRecette('recette/manger.txt')
+            recette_map.display()
         elif user_input == 'b':
-            hasse_diagram = Hasse(dessert_map)
+            hasse_diagram = Hasse(recette_map)
             hasse_diagram.remove_relexivity()
             hasse_diagram.remove_transitivity()
             hasse_diagram.print_hasse()
+        elif user_input == 'c':
+            pass
         else:
             print("Mauvaise entree")
 
