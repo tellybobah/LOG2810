@@ -67,7 +67,7 @@ class GraphRecette:
         self.connections[Node(node_ID, name)] = set()
 
     def add_edge(self, node_1, node_2):
-        node_2_name = self.get_name(node_2)
+        node_2_name = self.get_node_name(node_2)
         self.connections[node_1].add(Node(node_2, node_2_name))
 
     def parse_file(self, file_name):
@@ -90,7 +90,7 @@ class GraphRecette:
             node_1, node_2 = map(int, line.strip().split(','))
             self.add_edge(node_1, node_2)
                     
-    def get_name(self, ID):
+    def get_node_name(self, ID):
         nodes = self.connections.keys()
         for node in nodes:
             if node == ID:
