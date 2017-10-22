@@ -8,7 +8,7 @@ class Dijkstra:
     def __init__(self, graph):
         self.graph = graph
 
-    #Tries to find a path with the 3amp drone and the 5amp drone if there was no solution
+    #Tries to find a path with the 3amp drone or the 5amp drone or if there was no solution
     def solution(self, start_node, end_node, package):
         drone_3 = Drone3Amp(package)
         path, temp, energy_left = self.shortest_path(start_node, end_node, drone_3)
@@ -100,7 +100,7 @@ class Dijkstra:
             dist_from_start = remaining_nodes[curr_node]['distance']
             new_dist = dist_from_start + dist_from_node
 
-            #TODO cleanup
+            #Updates the energy to a node if the cost is less then what it was
             neighbour_cost = energy_cost[neighbour]
             if neighbour_cost is None or neighbour_cost > energy_cost[curr_node] + drone.predictEnergy(dist_from_node):
                 energy_cost[neighbour] = energy_cost[curr_node] + drone.predictEnergy(dist_from_node)
