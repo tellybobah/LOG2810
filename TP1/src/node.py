@@ -12,7 +12,7 @@ class Node() :
     def getID(self):
         return self.ID
 
-    def getNAme(self):
+    def getName(self):
         return self.name
 
     def __str__(self):
