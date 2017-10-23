@@ -8,13 +8,24 @@ class Node() :
     def __init__(self,ID,name=''):
         self.ID = ID
         self.name = name
-
+        """
+        This function return the ID
+        """
     def getID(self):
         return self.ID
+<<<<<<< Updated upstream
 
     def getName(self):
+=======
+    """
+    this function return the name of a NODE
+    """
+    def getNAme(self):
+>>>>>>> Stashed changes
         return self.name
-
+    """
+    This function 
+    """
     def __str__(self):
         if self.name is None:
             return str(self.ID)

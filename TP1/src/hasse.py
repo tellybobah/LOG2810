@@ -7,7 +7,11 @@ class Hasse:
     
     
     """
+<<<<<<< Updated upstream
         This function find if node 1 and node 2 are connected
+=======
+        This method find if node 1 and node 2 are connected
+>>>>>>> Stashed changes
         parameters :
             connections -- Hashmap that contains the node as key and his 
             connection as value
@@ -20,7 +24,11 @@ class Hasse:
       
     
     """
+<<<<<<< Updated upstream
         This function delete the reflexivity in a graph
+=======
+        This method delete the reflexivity in a graph
+>>>>>>> Stashed changes
             connections -- Hashmap that contains the node as key and his 
             connection as value
             
@@ -33,7 +41,11 @@ class Hasse:
        
              
     """
+<<<<<<< Updated upstream
         This function delete transitivity
+=======
+        This method delete transitivity
+>>>>>>> Stashed changes
         parameters :
             connections -- Hashmap that contains the node as key and his 
             connection as value
@@ -51,7 +63,11 @@ class Hasse:
                 connections[node] = set(connections[node]) - set(common_nodes)
     
     """
+<<<<<<< Updated upstream
         This recursive function adds to a pile the node and print the stack when it can't find another connected node
+=======
+        This recursive method adds to a pile the node and print the stack when it can't find another connected node
+>>>>>>> Stashed changes
         parameters :
             node -- The current node to look up for other nodes
             parents -- contains the stack of parents           
@@ -68,7 +84,11 @@ class Hasse:
             parents.pop()
             
     """
+<<<<<<< Updated upstream
         This function calls the recursive function print_hasse_rec to print each branch of Hasse`s diagram         
+=======
+        This method calls the recursive function print_hasse_rec to print each branch of Hasse`s diagram         
+>>>>>>> Stashed changes
     """  
     def print_hasse(self):
         connections = self.graph.connections
@@ -81,7 +101,11 @@ class Hasse:
             
             
     """
+<<<<<<< Updated upstream
         This function find which nodes are connected a node and 
+=======
+        This method find which nodes are connected a node and 
+>>>>>>> Stashed changes
         return a list:
             
             connections -- Hashmap that contains the node as key and his 

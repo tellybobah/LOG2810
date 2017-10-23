@@ -114,7 +114,7 @@ class Dijkstra:
             if new_dist < old_dist:
                 remaining_nodes[neighbour].update({'prev_node':curr_node, 'distance':new_dist})
                 
-
+    """"""
     def closest_node(self, remaining_nodes):
         return min(remaining_nodes.items(), key=lambda x: x[1]['distance'])[0]
 
