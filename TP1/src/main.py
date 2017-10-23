@@ -11,7 +11,7 @@ from hasse import *
 from drone import Package
 
 def menu_drones():
-    drone_map = GraphDrone('drone/arrondissements.txt')
+    drone_map = GraphDrone('arrondissements.txt')
     user_input = None
     while(user_input != 'c'):
         print("(a) Mettre a jour la carte")
@@ -20,7 +20,7 @@ def menu_drones():
         user_input = input()
         
         if user_input == 'a':
-            drone_map = GraphDrone('drone/arrondissements.txt')
+            drone_map = GraphDrone('arrondissements.txt')
         elif user_input == 'b':
             print("Choisir le noeud de debut: ", end = '')
             debut = int(input())
@@ -51,7 +51,7 @@ def menu_drones():
             print("Mauvaise entree")
 
 def menu_recettes():
-    recette_map = GraphRecette('recette/manger.txt')
+    recette_map = GraphRecette('manger.txt')
     user_input = None
     while(user_input != 'c'):
         print("(a) Creer et afficher le graphe de recettes")
@@ -60,7 +60,7 @@ def menu_recettes():
         user_input = input()
         
         if user_input == 'a':
-            recette_map = GraphRecette('recette/manger.txt')
+            recette_map = GraphRecette('manger.txt')
             #TODO: Ajouter un display du graphe apres lecture, sans reduction
             recette_map.display()
         elif user_input == 'b':
