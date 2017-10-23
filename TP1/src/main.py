@@ -26,7 +26,6 @@ def menu_drones():
             debut = int(input())
             print("Choisir le noeud de fin: ", end = '')
             fin = int(input())
-			
             
             print("Choisir le packet a apporter: ")
             print("(a) Leger")
@@ -46,15 +45,13 @@ def menu_drones():
                 dijk.solution(debut, fin, package)    
             else:
                 print("Desole, impossible de calculer le chemin")
+        elif user_input == 'c':
+            pass
         else:
             print("Mauvaise entree")
 
 def menu_recettes():
-<<<<<<< Updated upstream
     recette_map = GraphRecette('recette/manger.txt')
-=======
-    dessert_map = GraphRecette('recette/manger.txt')
->>>>>>> Stashed changes
     user_input = None
     while(user_input != 'c'):
         print("(a) Creer et afficher le graphe de recettes")
@@ -63,19 +60,16 @@ def menu_recettes():
         user_input = input()
         
         if user_input == 'a':
-<<<<<<< Updated upstream
             recette_map = GraphRecette('recette/manger.txt')
-            recette_map.display()
-=======
-            dessert_map = GraphRecette('recette/manger.txt')
             #TODO: Ajouter un display du graphe apres lecture, sans reduction
-            dessert_map.display()
->>>>>>> Stashed changes
+            recette_map.display()
         elif user_input == 'b':
             hasse_diagram = Hasse(recette_map)
             hasse_diagram.remove_relexivity()
             hasse_diagram.remove_transitivity()
+            print()
             hasse_diagram.print_hasse()
+            print()
         elif user_input == 'c':
             pass
         else:

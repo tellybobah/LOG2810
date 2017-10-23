@@ -5,15 +5,27 @@ import math
 from drone import *
 
 class Dijkstra:
+    """
+        Constructor fucntions
+        Keeps the graph as an attribute as it is used by all the funtions
+
+        graph - a graph
+    """
     def __init__(self, graph):
         self.graph = graph
 
-    #Tries to find a path with the 3amp drone or the 5amp drone or if there was no solution
+    """
+        Tries to find a path with the 3amp drone or the 5amp drone or if there was no solution
+
+        start_node - the starting node in the graph | Node
+        end_node - the end node in the graph | Node
+        package - the weight of the package | Package Enum
+    """
     def solution(self, start_node, end_node, package):
         drone_3 = Drone3Amp(package)
         path, temp, energy_left = self.shortest_path(start_node, end_node, drone_3)
 
-        #TODO cleanup
+        #TODO find a cleaner way
         if path is False:
             drone_5 = Drone5Amp(package)
             path, temp, energy_left = self.shortest_path(start_node, end_node, drone_5)
@@ -36,7 +48,14 @@ class Dijkstra:
             print('Energie restante:', energy_left)
             return
 
-    def shortest_path(self,start_node, end_node, drone):
+    """
+        Finds the shortest path in the graph through dijkstra's algorithm with a specefic drone
+
+        start_node - the starting node in the graph | Node
+        end_node - the end node in the graph | Node
+        drone - the drone used for this path | Drone
+    """
+    def shortest_path(self, start_node, end_node, drone):
         #Two dictionaries of nodes used by the algorithm
         visited_nodes = dict()
         remaining_nodes = dict()
@@ -58,7 +77,7 @@ class Dijkstra:
         remaining_nodes[start_node].update({'prev_node':None, 'distance':0})
         energy_cost[start_node] = 0
 
-        #this is dijkstra algorithm
+        #dijkstra algorithm
         #1. choose a node from the remaining nodes with shortest distance from the start
         #2. update the neighbours of that node if the distance is shorter in that path
         #3. put that node in the visited nodes
@@ -82,9 +101,17 @@ class Dijkstra:
 
         return (path, path_time, energy_left)
 
+    """
+        Iterate over all of the neighbours of the current node
+        Update their distance from the start_node and their last node in the remaining_nodes dict
+
+        curr_node - the current node from which we are updating the neighbours | Node
+        remaining_nodes - dict of not yet visited nodes | Dictionary
+        visited_nodes - dict of visited nodes | Dictionary
+        energy_cost - dict of energy consumption at the node | Dictionary
+    """
     def update_neighbours(self, curr_node, remaining_nodes, visited_nodes, energy_cost, drone):
-        #Iterate over all of the neighbours of the current node
-        #Update their distance from the start_node and their last node in the remaining_nodes dict
+
         neighbours = self.graph.get_neighbours(curr_node)
 
         if curr_node in self.graph.list_stations:
@@ -114,17 +141,22 @@ class Dijkstra:
             if new_dist < old_dist:
                 remaining_nodes[neighbour].update({'prev_node':curr_node, 'distance':new_dist})
                 
-    """"""
+    """
+        Finds the closest node in the remaining nodes
+    """
     def closest_node(self, remaining_nodes):
         return min(remaining_nodes.items(), key=lambda x: x[1]['distance'])[0]
 
+    """
+        Finds a the path by iterating through the previous nodes from the end node
+        Returns false if no path exists to the start node
+    """
     def generate_final_path(self, start_node, end_node, visited_nodes):
         path = []
         last = end_node
         path.append(last)
         while last != start_node:
             if last is None:
-                
                 return False
             last = visited_nodes[last]['prev_node']
             path.append(last)
