@@ -30,22 +30,22 @@ class Dijkstra:
             drone_5 = Drone5Amp(package)
             path, temp, energy_left = self.shortest_path(start_node, end_node, drone_5)
         else:
-            print('Utilisation du Drone 3 Amp')
+            print('Utilisation du Drone 3.3 Amp')
             print('Chemin')
             print(*path, sep=' => ')
             print('Temp requis:', temp, 'minutes')
-            print('Energie restante:', energy_left)
+            print('Energie restante:', energy_left, '%')
             return
 
         if path is False:
             print('Aucun chemin possible')
         else:
-            print('Utilisation du Drone 5 Amp')
+            print('Utilisation du Drone 5.0 Amp')
             print('Chemin:')
             for node in path:
                 print(node, end=' => ')
-            print('Temp requis:', temp)
-            print('Energie restante:', energy_left)
+            print('Temp requis:', temp, 'minutes')
+            print('Energie restante:', energy_left, '%')
             return
 
     """
@@ -86,7 +86,7 @@ class Dijkstra:
             #1
             curr_node = self.closest_node(remaining_nodes)
             #2
-            self.update_neighbours(curr_node, remaining_nodes, visited_nodes, energy_cost, drone)
+            self.update_neighbours(curr_node, end_node, remaining_nodes, visited_nodes, energy_cost, drone)
             #3
             visited_nodes.update({curr_node:remaining_nodes.pop(curr_node)})
         
@@ -110,11 +110,11 @@ class Dijkstra:
         visited_nodes - dict of visited nodes | Dictionary
         energy_cost - dict of energy consumption at the node | Dictionary
     """
-    def update_neighbours(self, curr_node, remaining_nodes, visited_nodes, energy_cost, drone):
+    def update_neighbours(self, curr_node, end_node, remaining_nodes, visited_nodes, energy_cost, drone):
 
         neighbours = self.graph.get_neighbours(curr_node)
 
-        if curr_node in self.graph.list_stations:
+        if curr_node in self.graph.list_stations and curr_node != end_node:
             energy_cost[curr_node] = 0
 
         energy_cost[curr_node] = 0 if energy_cost[curr_node] is None else energy_cost[curr_node]
@@ -134,7 +134,7 @@ class Dijkstra:
 
             if 100 - energy_cost[neighbour] < 20:
                 new_dist = math.inf
-            elif neighbour in self.graph.list_stations:
+            elif neighbour in self.graph.list_stations and neighbour != end_node:
                 new_dist += 20
 
             #update the distance from the start to the neighbour and the previous node if a shorter path is found
