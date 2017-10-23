@@ -22,7 +22,7 @@ def menu_drones():
         user_input = input()
         
         if user_input == 'a':
-            file_name = input('Veuiller entrer le nom du fichier:')
+            file_name = input('Veuiller entrer le nom du fichier: ')
             if os.path.isfile(file_name) :
                 drone_map = GraphDrone('arrondissements.txt')
             else: 
