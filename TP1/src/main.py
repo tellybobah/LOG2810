@@ -9,6 +9,8 @@ from graph import *
 from dijkstra import *
 from hasse import *
 from drone import Package
+import os.path
+
 
 def menu_drones():
     drone_map = GraphDrone('arrondissements.txt')
@@ -20,7 +22,13 @@ def menu_drones():
         user_input = input()
         
         if user_input == 'a':
-            drone_map = GraphDrone('arrondissements.txt')
+            file_name = input('Veuiller entrer le nom du fichier:')
+            if os.path.isfile(file_name) :
+                drone_map = GraphDrone('arrondissements.txt')
+            else: 
+                print('Erreur, le fichier n\' a pas été trouvé')
+                continue
+
         elif user_input == 'b':
             print("Choisir le noeud de debut: ", end = '')
             debut = int(input())
