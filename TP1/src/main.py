@@ -70,7 +70,9 @@ def menu_recettes():
         if user_input == 'a':
             recette_map = GraphRecette('manger.txt')
             #TODO: Ajouter un display du graphe apres lecture, sans reduction
+            print()
             recette_map.display()
+            print()
         elif user_input == 'b':
             hasse_diagram = Hasse(recette_map)
             hasse_diagram.remove_relexivity()

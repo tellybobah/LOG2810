@@ -26,10 +26,10 @@ class Hasse:
 
     """
     def remove_relexivity(self):
-        for node in self.graph.connections:
+        for node, neighbours in self.graph.connections.items():
             if self.is_in_relation(node,node):
-                #If a node is connected to himself then remove it
-                self.graph.connections[node].remove(node)
+                #If a node is connected to itself, remove it
+                neighbours.remove(node)
 
 
     """
@@ -87,6 +87,4 @@ class Hasse:
             node -- the node that we will find the connections
     """
     def find_connected(self, node):
-        #For all the nodes in connections, look if node is connected
         return [a_node for a_node, a_neighbours in self.graph.connections.items() if node in a_neighbours]
-
