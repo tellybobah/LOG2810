@@ -40,14 +40,9 @@ class Hasse:
 
     """
     def remove_transitivity(self):
-        connections = self.graph.connections
-        for node, common_nodes in connections.items():
-            for connected_node in connections[node] :
-                #For all the neighbour of our current node remove the common elements
-                connection = connections[connected_node]
-                common_nodes = set(common_nodes).intersection(connection)
-                #Remove the common element of the current node and his neigbour
-                connections[node] = list(set(connections[node]) - set(common_nodes))
+        for node, neighbours in self.graph.connections.items():
+            for neighbour in neighbours :
+                self.graph.connections[node] = neighbours - self.graph.connections[neighbour]
 
     """
         This recursive method adds to a pile the node and print the stack when it can't find another connected node
