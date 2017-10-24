@@ -45,9 +45,9 @@ class Hasse:
             for connected_node in connections[node] :
                 #For all the neighbour of our current node remove the common elements
                 connection = connections[connected_node]
-                common_nodes = set(common_nodes).intersection(connection)
+                common_nodes_temp = set(common_nodes).intersection(connection)
                 #Remove the common element of the current node and his neigbour
-                connections[node] = list(set(connections[node]) - set(common_nodes))
+                connections[node] = list(set(connections[node]) - set(common_nodes_temp))
 
     """
         This recursive method adds to a pile the node and print the stack when it can't find another connected node
