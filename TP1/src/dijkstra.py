@@ -111,25 +111,35 @@ class Dijkstra:
         if curr_node in self.graph.list_stations and curr_node != end_node:
             remaining_nodes[curr_node]['energy_cost'] = 0
 
+        if remaining_nodes[curr_node]['energy_cost'] is None:
+            print('DEBUG someting wrong')
+            remaining_nodes[curr_node]['energy_cost'] = 0 
+
         for neighbour, dist_from_node in self.graph.get_neighbours(curr_node).items():
             if neighbour in visited_nodes:
+                #skip the neighbours that already have been visited
                 continue
 
             old_dist = remaining_nodes[neighbour]['distance']
             dist_from_start = remaining_nodes[curr_node]['distance']
             new_dist = dist_from_start + dist_from_node
 
-            if neighbour in self.graph.list_stations and neighbour != end_node:
-                new_dist += 20
-
             #Updates the distance and the energy to a node if the cost is less then what it was
             neighbour_cost = remaining_nodes[neighbour]['energy_cost']
             if neighbour_cost is None or neighbour_cost > remaining_nodes[curr_node]['energy_cost'] + drone.predictEnergy(dist_from_node):
                 remaining_nodes[neighbour]['energy_cost'] = remaining_nodes[curr_node]['energy_cost'] + drone.predictEnergy(dist_from_node)
-                remaining_nodes[neighbour].update({'prev_node':curr_node, 'distance':new_dist})
 
             if 100 - remaining_nodes[neighbour]['energy_cost'] < 20:
                 remaining_nodes[neighbour].update({'distance':math.inf})  
+            elif neighbour in self.graph.list_stations and neighbour != end_node:
+                new_dist += 20
+
+
+            #update the distance from the start to the neighbour and the previous node if a shorter path is found
+            if new_dist < old_dist:
+                remaining_nodes[neighbour].update({'prev_node':curr_node, 'distance':new_dist})
+
+
     """
         Finds the closest node in the remaining nodes
     """
