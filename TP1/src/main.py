@@ -16,6 +16,7 @@ def menu_drones():
     user_input = None
     is_loaded_file = False
     while(user_input != 'c'):
+        print()
         print("(a) Mettre a jour la carte")
         print("(b) Determiner le plus court chemin securitaire")
         print("(c) Quitter")
@@ -67,6 +68,7 @@ def menu_recettes():
     user_input = None
     is_loaded_file = False
     while(user_input != 'c'):
+        print()
         print("(a) Creer et afficher le graphe de recettes")
         print("(b) Generer et afficher le diagramme de Hasse")
         print("(c) Quitter")

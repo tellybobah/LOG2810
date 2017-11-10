@@ -111,31 +111,46 @@ class Dijkstra:
 
         if curr_node in self.graph.list_stations and curr_node != end_node:
             energy_cost[curr_node] = 0
+            temp = set()
+            for node in visited_nodes:
+                if node not in self.graph.list_stations and visited_nodes[node]['distance'] != 0:
+                    temp.add(node)
+            for node in temp:
+                remaining_nodes.update({node:visited_nodes.pop(node)})
 
         energy_cost[curr_node] = 0 if energy_cost[curr_node] is None else energy_cost[curr_node]
-
+        
+        print("Current node:", curr_node, "Energy cost:", energy_cost[curr_node], "Distance:", remaining_nodes[curr_node]['distance'])
+        
         for neighbour, dist_from_node in neighbours.items():
+            
             if neighbour in visited_nodes:
                 continue
+            
 
             old_dist = remaining_nodes[neighbour]['distance']
             dist_from_start = remaining_nodes[curr_node]['distance']
             new_dist = dist_from_start + dist_from_node
 
-            #Updates the energy to a node if the cost is less then what it was
-            neighbour_cost = energy_cost[neighbour]
-            if neighbour_cost is None or neighbour_cost > energy_cost[curr_node] + drone.predictEnergy(dist_from_node):
-                energy_cost[neighbour] = energy_cost[curr_node] + drone.predictEnergy(dist_from_node)
-
-            if 100 - energy_cost[neighbour] < 20:
+            tempEnergy = energy_cost[neighbour]
+            if tempEnergy is None or tempEnergy > energy_cost[curr_node] + drone.predictEnergy(dist_from_node):
+                tempEnergy = energy_cost[curr_node] + drone.predictEnergy(dist_from_node)
+                
+            if 100 - tempEnergy < 20:
                 new_dist = math.inf
             elif neighbour in self.graph.list_stations and neighbour != end_node:
                 new_dist += 20
 
             #update the distance from the start to the neighbour and the previous node if a shorter path is found
-            if new_dist < old_dist:
+            if new_dist < old_dist or energy_cost[neighbour] is None or tempEnergy < energy_cost[neighbour]:
                 remaining_nodes[neighbour].update({'prev_node':curr_node, 'distance':new_dist})
-                
+                #Updates the energy to a node if the cost is less then what it was
+                neighbour_cost = energy_cost[neighbour]
+                #if neighbour_cost is None or neighbour_cost > energy_cost[curr_node] + drone.predictEnergy(dist_from_node):
+                energy_cost[neighbour] = energy_cost[curr_node] + drone.predictEnergy(dist_from_node)
+                print("Energy modified")
+            print("-", neighbour, "Energy cost:", energy_cost[neighbour], "Distance:", remaining_nodes[neighbour]['distance'])
+            
     """
         Finds the closest node in the remaining nodes
     """
