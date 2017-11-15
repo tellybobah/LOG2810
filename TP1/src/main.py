@@ -13,9 +13,10 @@ import os.path
 
 
 def menu_drones():
-    drone_map = GraphDrone('arrondissements.txt')
     user_input = None
+    is_loaded_file = False
     while(user_input != 'c'):
+        print()
         print("(a) Mettre a jour la carte")
         print("(b) Determiner le plus court chemin securitaire")
         print("(c) Quitter")
@@ -24,12 +25,17 @@ def menu_drones():
         if user_input == 'a':
             file_name = input('Veuiller entrer le nom du fichier: ')
             if os.path.isfile(file_name) :
-                drone_map = GraphDrone('arrondissements.txt')
+                drone_map = GraphDrone(file_name)
+                is_loaded_file = True
             else: 
                 print('Erreur, le fichier n\' a pas été trouvé')
                 continue
 
         elif user_input == 'b':
+            if is_loaded_file == False:
+                print('Erreur, le fichier n\' a pas été généré')
+                continue
+            
             print("Choisir le noeud de debut: ", end = '')
             debut = int(input())
             print("Choisir le noeud de fin: ", end = '')
@@ -59,21 +65,30 @@ def menu_drones():
             print("Mauvaise entree")
 
 def menu_recettes():
-    recette_map = GraphRecette('manger.txt')
     user_input = None
+    is_loaded_file = False
     while(user_input != 'c'):
+        print()
         print("(a) Creer et afficher le graphe de recettes")
         print("(b) Generer et afficher le diagramme de Hasse")
         print("(c) Quitter")
         user_input = input()
         
         if user_input == 'a':
-            recette_map = GraphRecette('manger.txt')
-            #TODO: Ajouter un display du graphe apres lecture, sans reduction
+            file_name = input('Veuiller entrer le nom du fichier: ')
+            if os.path.isfile(file_name) :
+                recette_map = GraphRecette(file_name)
+                is_loaded_file = True
+            else: 
+                print('Erreur, le fichier n\' a pas été trouvé')
+                continue
             print()
             recette_map.display()
             print()
         elif user_input == 'b':
+            if is_loaded_file == False:
+                print('Erreur, le fichier n\' a pas été généré')
+                continue
             hasse_diagram = Hasse(recette_map)
             hasse_diagram.remove_relexivity()
             hasse_diagram.remove_transitivity()
