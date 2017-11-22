@@ -2,21 +2,9 @@
 @author: Boubacar, Abderahmane, Leandre
 """
 from multiprocessing import Queue
-from automat import Automat
+from package import Package
 class District : 
     
-    def __init__(self,package, drones):
+    def __init__(self):
         self.package = Queue()
-        self.automat = Automat()
-    
-    def equilibrate_swarm(self):
-        pass
-    
-    def assign_packages(self):
-        pass
-    
-    def parse_request(self,file_number):
-        pass
-    
-    def print_statistics(self):
-        pass
+        self.last_visit_counter = 0 
