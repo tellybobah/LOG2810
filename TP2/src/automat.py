@@ -12,19 +12,25 @@ class Automat :
     
     def create_state_adress(self,file):
         current_node = self.initial_State
-        with open (file) as f :
+        with open(file, "r") as f:
             while(True):
-                node = f.read(1)
-                if node == '\n':
-                    current_node = self.initial_State
-                if not node :
+                line = f.readline().strip('\n').strip(' ').strip('\r')
+                if not line:
                     break
-                found = False
-                for state in current_node.next_states:
-                    if state.value == node :
-                        current_node = state
-                        found = True
-                if  not found : 
-                    inserted_state = State(node)
-                    current_node.next_states.append(inserted_state)
-                    current_node = inserted_state 
+                if not len(line) == 6:
+                    continue 
+                counter = 0
+                while not counter == 6:
+                    node = line[counter]
+                    found_node = False
+
+                    for state in current_node.next_states:
+                        if state.value == node :
+                            current_node = state
+                            found_node = True
+
+                    if  not found_node : 
+                        inserted_state = State(node)
+                        current_node.next_states.append(inserted_state)
+                        current_node = inserted_state
+                    counter = counter + 1
