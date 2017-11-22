@@ -5,7 +5,7 @@
 from delevery import Delevery
 
 def main():
-    user_input = 'e'
+    user_input = 'f'
     delevery = Delevery()
     while(user_input != 'd'):
         print("(a) Creer automate")

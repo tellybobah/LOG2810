@@ -2,8 +2,9 @@
 @author: Boubacar, Abderahmane, Leandre
 """
 
+import queue
 import os.path
-
+from automat import Automat
 class Delevery : 
     
     def __init__(self):
@@ -11,7 +12,7 @@ class Delevery :
         self.automat = Automat()
         self.treated_query = 0
         self.invalid_query =0
-        
+        self.adresses = queue.PriorityQueue()
     
     def equilibrate_swarm(self):
         pass
@@ -19,11 +20,11 @@ class Delevery :
     def assign_packages(self):
         pass
     
-    def parse_request(file_name):
-        if os.path.exists("../adress/" + file_name)
-            automat.create_state_adress(file_name):
+    def parse_request(self,file_name):
+        if os.path.exists("../adress/" + file_name):
+            self.automat.create_state_adress(file_name)
             return True
         return False
     
-    def print_statistics():
+    def print_statistics(self):
         pass
