@@ -1,11 +1,14 @@
 """
 @author: Boubacar, Abderahmane, Leandre
 """
-from multiprocessing import Queue
+import queue
 from package import Package
 class District : 
     
     def __init__(self, value):
-        self.package = Queue()
+        self.packages = queue.Queue()
         self.last_visit_counter = 0 
         self.value = value
+
+    def add_package(self, weight, destination):
+        self.packages.put(Package(weight,destination))
