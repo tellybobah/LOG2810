@@ -21,11 +21,12 @@ class Automat :
                     break
                 if not len(line) == 6:
                     continue 
+                
+                current_node = self.initial_state
                 counter = 0
                 while not counter == 6:
                     node = line[counter]
                     found_node = False
-
                     for state in current_node.next_states:
                         if state.value == node :
                             current_node = state
@@ -33,7 +34,7 @@ class Automat :
 
                     if  not found_node :
                         inserted_state = None
-                        if counter == 6:
+                        if counter == 5:
                             inserted_state = District(node)
                         else:
                             inserted_state = State(node)
