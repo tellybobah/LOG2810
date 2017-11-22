@@ -5,6 +5,8 @@ Created on Wed Nov 15 09:36:08 2017
 @author: Boubacar
 """
 from state import State
+from district import District
+
 class Automat : 
     
     def __init__(self):
@@ -29,8 +31,18 @@ class Automat :
                             current_node = state
                             found_node = True
 
-                    if  not found_node : 
-                        inserted_state = State(node)
+                    if  not found_node :
+                        inserted_state = None
+                        if counter == 6:
+                            inserted_state = District(node)
+                        else:
+                            inserted_state = State(node)
                         current_node.next_states.append(inserted_state)
                         current_node = inserted_state
                     counter = counter + 1
+
+    def verify_adress(self, adress):
+        pass
+    
+    def get_adress(self, adress):
+        pass
