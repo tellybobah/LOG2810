@@ -10,10 +10,10 @@ from district import District
 class Automat : 
     
     def __init__(self):
-        self.initial_State = State()
+        self.initial_state = State()
     
     def create_state_adress(self,file):
-        current_node = self.initial_State
+        current_node = self.initial_state
         with open(file, "r") as f:
             while(True):
                 line = f.readline().strip('\n').strip(' ').strip('\r')
@@ -42,7 +42,35 @@ class Automat :
                     counter = counter + 1
 
     def verify_adress(self, adress):
-        pass
+        counter = 0
+        current_node = self.initial_state
+        while not counter == 6:
+            node = adress[counter]
+            found_next_state = False
+            for state in current_node.next_states:
+                if state.value == node :
+                    current_node = state
+                    found_next_state = True
+
+            if not found_next_state:
+                return False
+            
+            counter = counter + 1
+        return True
     
     def get_adress(self, adress):
-        pass
+        counter = 0
+        current_node = self.initial_state
+        while not counter == 6:
+            node = adress[counter]
+            found_next_state = False
+            for state in current_node.next_states:
+                if state.value == node :
+                    current_node = state
+                    found_next_state = True
+
+            if not found_next_state:
+                return None
+            
+            counter = counter + 1
+        return current_node
