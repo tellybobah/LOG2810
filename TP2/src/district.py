@@ -1,22 +1,22 @@
 """
 @author: Boubacar, Abderahmane, Leandre
 """
-import Queue
-
+from multiprocessing import Queue
+from automat import Automat
 class District : 
     
-    def __init__(package, drones):
-        self.package = Queue.Queue()
-        self.automat = automat
+    def __init__(self,package, drones):
+        self.package = Queue()
+        self.automat = Automat()
     
-    def equilibrate_swarm():
+    def equilibrate_swarm(self):
         pass
     
-    def assign_packages():
+    def assign_packages(self):
         pass
     
-    def parse_request(file_number):
+    def parse_request(self,file_number):
         pass
     
-    def print_statistics():
+    def print_statistics(self):
         pass

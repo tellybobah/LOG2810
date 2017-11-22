@@ -9,11 +9,14 @@ class Delevery :
     def __init__(self):
         self.drones = []
         self.automat = Automat()
+        self.treated_query = 0
+        self.invalid_query =0
+        
     
-    def equilibrate_swarm():
+    def equilibrate_swarm(self):
         pass
     
-    def assign_packages():
+    def assign_packages(self):
         pass
     
     def parse_request(file_name):
