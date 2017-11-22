@@ -25,4 +25,6 @@ class Automat :
                         current_node = state
                         found = True
                 if  not found : 
-                    current_node.next_states.append(State(node))
+                    inserted_state = State(node)
+                    current_node.next_states.append(inserted_state)
+                    current_node = inserted_state 
