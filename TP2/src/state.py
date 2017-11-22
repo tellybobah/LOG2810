@@ -6,11 +6,11 @@ Created on Wed Nov 15 09:36:14 2017
 """
 class State : 
     
-    def  __init__(self,next_states,is_final):
+    def  __init__(self,value=''):
         self.next_states = []
-        self.is_final = False
+        self.value = value
 
     def add_state(self,state):
-        pass
+        self.next_states.append(state)
        
         
