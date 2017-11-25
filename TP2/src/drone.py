@@ -16,7 +16,7 @@ class Drone :
         return self.packages
     
     def set_position(self,position):
-        self.position = position
+        self.curent_position = position
 
     def add_package(self,package):
         self.packages.append(package)

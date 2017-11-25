@@ -9,3 +9,6 @@ class Package :
 
     def get_destination(self):
         return self.destination
+
+    def __str__(self):
+        return "Weight : " + str(self.weight) + " Destination :" + str(self.destination)

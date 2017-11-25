@@ -24,8 +24,6 @@ class Delivery :
         """
         initialisation : initialise la file de priorite en ordre inverse
         """
-        # for district in self.automaton.get_all_districts() :
-        #     self.remaining_adresses_w_packages.put((-district.get_score(), district))
 
         for i in range(10):
             self.drones.append(Drone(1000))
@@ -46,31 +44,41 @@ class Delivery :
 
             temp_useless_district = []
             while True:
-                first_elem = self.priority_district.get()[1]
+                first_elem = self.priority_district.get_nowait()
+                #print(first_elem)
                 if len(first_elem.packages) != 0:
+                    #print("Debug", *first_elem.packages, sep='\n')
                     if drone.max_weight >= first_elem.packages[0].get_weight():
+                        print('A', first_elem)
                         drone.set_position(first_elem)
                         first_elem.visit()
+                        self.priority_district.put(first_elem)
                         break
                     else:
+                        print('C')
                         temp_useless_district.append(first_elem)
                 else:
+                    #print('I')
+                    #print(first_elem)
                     drone.set_position(first_elem)
+                    self.priority_district.put(first_elem)
                     break
                 
-            for item in temp_useless_district:           
-                self.priority_district.put((-item.get_score(), item))
+            for item in temp_useless_district:
+                #print('G')           
+                self.priority_district.put(item)
     
     def assign_packages_to_drones(self):
         #TODO appeler deux fois
         for drone in self.drones :
             if len(drone.get_packages()) == 0:
                 district = drone.get_current_position()
-                print(district, "Package : ",district.packages.qsize())
-                if district.packages.qsize() > 0:
+                #print(district, "Package : ",len(district.packages))
+                if len(district.packages) > 0:
 
                     first_package = district.packages.popleft()
-                    if drone.get_max_weight() >= first_package:
+                    print(first_package)
+                    if drone.get_max_weight() >= first_package.get_weight():
                         drone.add_package(first_package)
                     else:
                         first_package.appendleft(first_package)
@@ -80,7 +88,7 @@ class Delivery :
 
                     to_remove = []
                     for item in district.packages:
-                        if item.get_destination() == first_package():
+                        if item.get_destination() == first_package.get_destination():
                             if(remaining_weight_to_fill >= item.get_weight()):
                                 remaining_weight_to_fill -= item.get_weight()
                                 drone.add_package(item)
@@ -104,6 +112,10 @@ class Delivery :
         file_path = "../adress/" + file_name
         if os.path.exists(file_path):
             self.automaton.create_state_adress(file_path)
+
+            for district in self.automaton.get_all_districts() :
+                self.priority_district.put(district)
+
             return True
         return False
 

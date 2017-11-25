@@ -26,3 +26,6 @@ class District :
 
     def __str__(self):
         return "District : " + self.value
+
+    def __lt__(self, other):
+        return self.calculate_score() > other.calculate_score()
