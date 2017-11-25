@@ -8,7 +8,7 @@ from automaton import Automaton
 from drone import *
 
 class Delivery : 
-    
+
     def __init__(self):
         self.drones = []
         self.automaton = Automaton()
@@ -23,8 +23,8 @@ class Delivery :
         """
         initialisation : initialise la file de priorite en ordre inverse
         """
-        for district in self.automaton.get_all_districts() :
-            self.remaining_adresses_w_packages.put((-district.get_score(), district))
+        # for district in self.automaton.get_all_districts() :
+        #     self.remaining_adresses_w_packages.put((-district.get_score(), district))
 
         for i in range(10):
             self.drones.append(Drone(1000))
@@ -41,14 +41,15 @@ class Delivery :
     def equilibrate_swarm(self):
         pass
     
-    def assign_package_to_drone(self):
+    def assign_packages_to_drones(self):
+        #TODO appeler deux fois
         for drone in self.drones :
             if len(drone.get_packages()) == 0:
                 district = drone.get_current_position()
+                print(district, "Package : ",district.packages.qsize())
                 if district.packages.qsize() > 0:
-
                     first_package = district.packages.get()
-                    if drone.get_max_weight() >= first_package:
+                    if drone.get_max_weight() >= first_package.get_weight():
                         drone.add_package(first_package)
                     else:
                         continue
@@ -59,12 +60,10 @@ class Delivery :
 
                     while district.packages.qsize() != 0:
                         temp_package = district.packages.get()
-                        if temp_package.get_destination() == first_package():
+                        if temp_package.get_destination() == first_package.get_destination():
                             if(remaining_weight_to_fill >= temp_package.get_weight()):
                                 remaining_weight_to_fill -= temp_package.get_weight()
                                 drone.add_package(temp_package)
-                            else:
-                                continue
                         if temp_package not in drone.get_packages():
                             temp_queue_packages.put(temp_package)
                     

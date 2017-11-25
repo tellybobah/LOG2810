@@ -3,8 +3,7 @@
 """
 import queue
 from package import Package
-class District : 
-    
+class District :  
     def __init__(self, value=""):
         self.packages = queue.Queue()
         self.last_visit_counter = 0 
@@ -18,3 +17,6 @@ class District :
 
     def calculate_score(self):
         return 0.6*len(self.packages) + 0.4* self.last_visit_counter
+
+    def __str__(self):
+        return "District : " + self.value

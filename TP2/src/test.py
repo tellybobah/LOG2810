@@ -1,20 +1,31 @@
 from district import District
 from delivery import Delivery
+from drone import *
 
 import queue
 
 delivery = Delivery()
 delivery.create_automaton("CodesPostaux.txt")
-delivery.parse_request("requetes1.txt")
- 
-print(delivery.automaton.verify_adress('H1W1B2'))
-print(delivery.automaton.verify_adress('H4N2Y8')) 
+delivery.parse_request("requetesTest.txt")
+
+# print(delivery.automaton.verify_adress('H1W1B2'))
+# print(delivery.automaton.verify_adress('H4N2Y8')) 
 district = delivery.automaton.get_adress('H1W1B2')
 
-print(district.packages.qsize())
+print("Number of pack: ", district.packages.qsize())
 
-while not district.packages.empty():
-    print(district.packages.get().get_weight())
+# while not district.packages.empty():
+#     print(district.packages.get().get_weight())
+
+delivery.drones[0].curent_position = district
+
+print(delivery.drones[0].curent_position)
+
+delivery.assign_packages_to_drones()
+
+print(delivery.drones[0].packages)
+
+print("Number of pack: ", district.packages.qsize())
 
 # automaton = Automat()
 # automaton.create_state_adress("testAutomat.txt")
