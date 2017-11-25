@@ -23,3 +23,6 @@ class District :
 
     def calculate_score(self):
         return 0.6*len(self.packages) + 0.4* self.last_visit_counter
+
+    def __str__(self):
+        return "District : " + self.value

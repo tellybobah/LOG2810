@@ -9,7 +9,7 @@ from drone import *
 from collections import deque
 
 class Delivery : 
-    
+
     def __init__(self):
         self.drones = []
         self.automaton = Automaton()
@@ -24,8 +24,8 @@ class Delivery :
         """
         initialisation : initialise la file de priorite en ordre inverse
         """
-        for district in self.automaton.get_all_districts() :
-            self.priority_district.put((-district.get_score(), district))
+        # for district in self.automaton.get_all_districts() :
+        #     self.remaining_adresses_w_packages.put((-district.get_score(), district))
 
         for i in range(10):
             self.drones.append(Drone(1000))
@@ -61,10 +61,12 @@ class Delivery :
             for item in temp_useless_district:           
                 self.priority_district.put((-item.get_score(), item))
     
-    def assign_package_to_drone(self):
+    def assign_packages_to_drones(self):
+        #TODO appeler deux fois
         for drone in self.drones :
             if len(drone.get_packages()) == 0:
                 district = drone.get_current_position()
+                print(district, "Package : ",district.packages.qsize())
                 if district.packages.qsize() > 0:
 
                     first_package = district.packages.popleft()
