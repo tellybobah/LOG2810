@@ -6,6 +6,7 @@ import queue
 import os.path
 from automaton import Automaton
 from drone import *
+from collections import deque
 
 class Delivery : 
     
@@ -16,7 +17,7 @@ class Delivery :
         self.invalid_query = 0
         self.drone_light_delivery_query = 0
         self.drone_heavy_delivery_query = 0
-        self.remaining_adresses_w_packages = queue.PriorityQueue()
+        self.priority_district = queue.PriorityQueue()
         self.initialisation()
 
     def initialisation(self):
@@ -24,7 +25,7 @@ class Delivery :
         initialisation : initialise la file de priorite en ordre inverse
         """
         for district in self.automaton.get_all_districts() :
-            self.remaining_adresses_w_packages.put((-district.get_score(), district))
+            self.priority_district.put((-district.get_score(), district))
 
         for i in range(10):
             self.drones.append(Drone(1000))
@@ -39,7 +40,26 @@ class Delivery :
                 drone.pop_package()
 
     def equilibrate_swarm(self):
-        pass
+        for drone in self.drones:
+            if len(drone.packages) != 0:
+                continue
+
+            temp_useless_district = []
+            while True:
+                first_elem = self.priority_district.get()[1]
+                if len(first_elem.packages) != 0:
+                    if drone.max_weight >= first_elem.packages[0].get_weight():
+                        drone.set_position(first_elem)
+                        first_elem.visit()
+                        break
+                    else:
+                        temp_useless_district.append(first_elem)
+                else:
+                    drone.set_position(first_elem)
+                    break
+                
+            for item in temp_useless_district:           
+                self.priority_district.put((-item.get_score(), item))
     
     def assign_package_to_drone(self):
         for drone in self.drones :
@@ -47,28 +67,27 @@ class Delivery :
                 district = drone.get_current_position()
                 if district.packages.qsize() > 0:
 
-                    first_package = district.packages.get()
+                    first_package = district.packages.popleft()
                     if drone.get_max_weight() >= first_package:
                         drone.add_package(first_package)
                     else:
+                        first_package.appendleft(first_package)
                         continue
 
                     remaining_weight_to_fill = drone.get_max_weight()-first_package.get_weight()
 
-                    temp_queue_packages = queue.Queue()
+                    to_remove = []
+                    for item in district.packages:
+                        if item.get_destination() == first_package():
+                            if(remaining_weight_to_fill >= item.get_weight()):
+                                remaining_weight_to_fill -= item.get_weight()
+                                drone.add_package(item)
+                                to_remove.append(item)
 
-                    while district.packages.qsize() != 0:
-                        temp_package = district.packages.get()
-                        if temp_package.get_destination() == first_package():
-                            if(remaining_weight_to_fill >= temp_package.get_weight()):
-                                remaining_weight_to_fill -= temp_package.get_weight()
-                                drone.add_package(temp_package)
-                            else:
-                                continue
-                        if temp_package not in drone.get_packages():
-                            temp_queue_packages.put(temp_package)
-                    
-                    district.packages = temp_queue_packages
+                    for item in to_remove:
+                        district.packages.remove(item)
+
+
 
     def assign_package_to_district(self, from_adress, to_adress, mass):
         adress1 = self.automaton.get_adress(from_adress)
