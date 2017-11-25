@@ -2,11 +2,11 @@
 @author: Boubacar, Abderahmane, Leandre
 """
 
-from delevery import Delevery
+from delivery import Delivery
 
 def main():
     user_input = 'e'
-    delevery = Delevery()
+    delivery = Delivery()
     while(user_input != 'd'):
         print("(a) Creer automate")
         print("(b) Traiter des requetes")
@@ -17,19 +17,19 @@ def main():
         if user_input == 'a':
 
             user_txt_input = input()
-            if delevery.create_automat(user_txt_input):
+            if delivery.create_automaton(user_txt_input):
                 print('Arbre d\'adresse cree')
             else:
                 print('Erreur dans le nom du fichier')
         elif user_input == 'b':
             user_txt_input = input()
-            if delevery.parse_request(user_txt_input):
+            if delivery.parse_request(user_txt_input):
                 pass
             else:
                 print('Erreur dans le nom du fichier')
             
         elif user_input == 'c':
-            delevery.print_statistics()
+            delivery.print_statistics()
         elif user_input == 'd':
             pass
         else:

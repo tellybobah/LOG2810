@@ -1,33 +1,33 @@
 from district import District
-from delevery import Delevery
+from delivery import Delivery
 
 import queue
 
-delevery = Delevery()
-delevery.create_automat("CodesPostaux.txt")
-delevery.parse_request("requetes1.txt")
+delivery = Delivery()
+delivery.create_automaton("CodesPostaux.txt")
+delivery.parse_request("requetes1.txt")
  
-print(delevery.automat.verify_adress('H1W1B2'))
-print(delevery.automat.verify_adress('H4N2Y8')) 
-district = delevery.automat.get_adress('H1W1B2')
+print(delivery.automaton.verify_adress('H1W1B2'))
+print(delivery.automaton.verify_adress('H4N2Y8')) 
+district = delivery.automaton.get_adress('H1W1B2')
 
 print(district.packages.qsize())
 
 while not district.packages.empty():
-    print(district.packages.get().getWeight())
+    print(district.packages.get().get_weight())
 
-# automat = Automat()
-# automat.create_state_adress("testAutomat.txt")
+# automaton = Automat()
+# automaton.create_state_adress("testAutomat.txt")
 
-# for state in automat.initial_state.next_states:
+# for state in automaton.initial_state.next_states:
 #     print(state.value)
 
-# print(automat.verify_adress('H3W1W6'))
-# print(automat.verify_adress('H3W1W7'))
-# print(automat.verify_adress('J4E1M7'))
-# print(automat.verify_adress('H5W1W6'))
+# print(automaton.verify_adress('H3W1W6'))
+# print(automaton.verify_adress('H3W1W7'))
+# print(automaton.verify_adress('J4E1M7'))
+# print(automaton.verify_adress('H5W1W6'))
 
-# district = automat.get_adress('H3W1W7')
+# district = automaton.get_adress('H3W1W7')
 # if not district:
 #     print('none')
 # else:
@@ -39,13 +39,13 @@ while not district.packages.empty():
 # print(' ')
 
 # queue = queue.Queue()
-# queue.put(automat.initial_state)
+# queue.put(automaton.initial_state)
 
-# #for state in automat.initial_State.next_states:
+# #for state in automaton.initial_State.next_states:
 #     #print(state.value)
 
 
-# def print_automat():
+# def print_automaton():
 #     while not queue.empty() :
 #         elem = queue.get()
 #         print(elem.value)
@@ -53,7 +53,7 @@ while not district.packages.empty():
 #             for node in elem.next_states:
 #                 queue.put(node)
 
-# #print_automat()
+# #print_automaton()
 
 # with open("../request/requetes1.txt", "r") as f:
 #     while(True):

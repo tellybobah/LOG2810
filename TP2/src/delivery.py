@@ -4,16 +4,18 @@
 
 import queue
 import os.path
-from automat import Automat
-class Delevery : 
+from automaton import Automaton
+from drone import *
+
+class Delivery : 
     
     def __init__(self):
         self.drones = []
-        self.automat = Automat()
+        self.automaton = Automaton()
         self.treated_query = 0
         self.invalid_query = 0
-        self.drone_light_delevery_query = 0
-        self.drone_heavy_delevery_query = 0
+        self.drone_light_delivery_query = 0
+        self.drone_heavy_delivery_query = 0
         self.remaining_adresses_w_packages = queue.PriorityQueue()
         self.initialisation()
 
@@ -21,14 +23,14 @@ class Delevery :
         """
         initialisation : initialise la file de priorite en ordre inverse
         """
-        for district in self.automat.get_all_districts() :
-            self.remaining_adresses_w_packages.put((-district.get_score(),district))
+        for district in self.automaton.get_all_districts() :
+            self.remaining_adresses_w_packages.put((-district.get_score(), district))
 
         for i in range(10):
-            drones.append(Drone(1000))
+            self.drones.append(Drone(1000))
 
         for i in range(5):
-            drones.append(Drone(5000))
+            self.drones.append(Drone(5000))
 
     def deliver_packages(self):
         for drone in self.drones:
@@ -69,18 +71,18 @@ class Delevery :
                     district.packages = temp_queue_packages
 
     def assign_package_to_district(self, from_adress, to_adress, mass):
-        adress1 = self.automat.get_adress(from_adress)
-        adress2 = self.automat.get_adress(to_adress)
+        adress1 = self.automaton.get_adress(from_adress)
+        adress2 = self.automaton.get_adress(to_adress)
         weight = int(mass)
         if (not adress1 == None and not adress2 == None) and (weight > 0 and weight <= 5000):
             adress1.add_package(weight, adress2)
         else:
            self.invalid_query += 1 
     
-    def create_automat(self, file_name):
+    def create_automaton(self, file_name):
         file_path = "../adress/" + file_name
         if os.path.exists(file_path):
-            self.automat.create_state_adress(file_path)
+            self.automaton.create_state_adress(file_path)
             return True
         return False
 
@@ -107,5 +109,5 @@ class Delevery :
         # TODO: Ajouter une liste de cartier avec le nombre de drones repartis
 
         print('Nombre Moyen de Colis par Drone :')
-        print('Faible Capacite: ', self.drone_light_delevery_query/10)
-        print('Forte Capacite: ' , self.drone_heavy_delevery_query/5)
+        print('Faible Capacite: ', self.drone_light_delivery_query/10)
+        print('Forte Capacite: ' , self.drone_heavy_delivery_query/5)

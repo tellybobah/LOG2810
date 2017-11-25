@@ -7,7 +7,7 @@ Created on Wed Nov 15 09:36:08 2017
 from state import State
 from district import District
 
-class Automat : 
+class Automaton : 
     
  
     def __init__(self):
