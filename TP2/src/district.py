@@ -5,7 +5,7 @@ import queue
 from package import Package
 class District : 
     
-    def __init__(self, value):
+    def __init__(self, value=""):
         self.packages = queue.Queue()
         self.last_visit_counter = 0 
         self.value = value
