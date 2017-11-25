@@ -4,8 +4,8 @@ class Package :
         self.weight = weight
         self.destination = destination
     
-    def getWeight(self):
+    def get_weight(self):
         return self.weight
 
-    def getDestination(self):
+    def get_destination(self):
         return self.destination
