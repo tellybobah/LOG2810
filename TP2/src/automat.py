@@ -12,6 +12,7 @@ class Automat :
  
     def __init__(self):
         self.initial_state = State()
+        self.districts_list = []
     
     def create_state_adress(self,file):
         """
@@ -45,6 +46,7 @@ class Automat :
                         inserted_state = None
                         if counter == 5:
                             inserted_state = District(node)
+                            self.districts_list.append(inserted_state)
                         else:
                             inserted_state = State(node)
                         current_node.next_states.append(inserted_state)
@@ -98,3 +100,7 @@ class Automat :
             
             counter = counter + 1
         return current_node
+
+    def get_all_districts(self):
+        return self.districts_list
+        

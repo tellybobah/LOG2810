@@ -15,9 +15,19 @@ class Delevery :
         self.drone_light_delevery_query = 0
         self.drone_heavy_delevery_query = 0
         self.remaining_adresses_w_packages = queue.PriorityQueue()
-    
+        self.initialisation()
+
+    def initialisation(self):
+        """
+        initialisation : initialise la file de priorite en ordre inverse
+        """
+        for district in self.automat.get_all_districts() :
+            self.remaining_adresses_w_packages.put((-district.get_score(),district))
+
+
     def equilibrate_swarm(self):
-        pass
+        for drone in self.drones :
+            pass
     
     def assign_package_to_district(self, from_adress, to_adress, mass):
         adress1 = self.automat.get_adress(from_adress)
