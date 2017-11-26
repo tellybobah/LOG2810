@@ -34,6 +34,7 @@ class Delivery :
     def deliver_packages(self):
         for drone in self.drones : 
             if len(drone.get_packages())!=0:
+                self.treated_query+=1
                 drone.packages = drone.packages[:-1]
                 if drone.get_max_weight() == 1000:
                     self.drone_light_delivery_query +=1
