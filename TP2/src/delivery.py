@@ -33,8 +33,12 @@ class Delivery :
 
     def deliver_packages(self):
         for drone in self.drones : 
-            if len(drone.get_packages()):
+            if len(drone.get_packages())!=0:
                 drone.packages = drone.packages[:-1]
+                if drone.get_max_weight() == 1000:
+                    self.drone_light_delivery_query +=1
+                else:
+                    self.drone_heavy_delivery_query+=1
 
         self.assign_packages_to_drones()
 
@@ -50,16 +54,16 @@ class Delivery :
                 if len(first_elem.packages) != 0:
                     #print("Debug", *first_elem.packages, sep='\n')
                     if drone.max_weight >= first_elem.packages[0].get_weight():
-                        print('A', first_elem)
+                        #print('A', first_elem)
                         drone.set_position(first_elem)
                         first_elem.visit()
                         self.priority_district.put(first_elem)
                         break
                     else:
-                        print('C')
+                        #print('C')
                         temp_useless_district.append(first_elem)
                 else:
-                    print('I')
+                    #print('I')
                     #print(first_elem)
                     drone.set_position(first_elem)
                     self.priority_district.put(first_elem)
@@ -141,11 +145,16 @@ class Delivery :
         return True
     
     def print_statistics(self):
+        print('\n')
+        print("-------------------------")
         print('Requetes Traitees :',self.treated_query)
         print('Requete Invalides :',self.invalid_query)
-
+        print("-------------------------")
         # TODO: Ajouter une liste de cartier avec le nombre de drones repartis
+        print("Repartition de la flotte")
 
         print('Nombre Moyen de Colis par Drone :')
         print('Faible Capacite: ', self.drone_light_delivery_query/10)
         print('Forte Capacite: ' , self.drone_heavy_delivery_query/5)
+        print("-------------------------")
+        print('\n')
