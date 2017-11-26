@@ -61,7 +61,7 @@ class Automaton :
         """   
         counter = 0
         current_node = self.initial_state
-        while not counter == 6:
+        while  counter != 6:
             node = adress[counter]
             found_next_state = False
             for state in current_node.next_states:
@@ -85,7 +85,7 @@ class Automaton :
         current_node = self.initial_state
 
         #Verifie que la taille est bien valide
-        while not counter == 6:
+        while  counter != 6:
             node = adress[counter]
             found_next_state = False
             

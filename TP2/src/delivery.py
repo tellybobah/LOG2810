@@ -32,10 +32,11 @@ class Delivery :
             self.drones.append(Drone(5000))
 
     def deliver_packages(self):
-        for drone in self.drones:
-            if len(drone.get_packages()) != 0:
-                drone.set_position(drone.get_packages()[0].get_destination())
-                drone.pop_package()
+        for drone in self.drones : 
+            if len(drone.get_packages()):
+                drone.packages = drone.packages[:-1]
+
+        self.assign_packages_to_drones()
 
     def equilibrate_swarm(self):
         for drone in self.drones:
@@ -58,7 +59,7 @@ class Delivery :
                         print('C')
                         temp_useless_district.append(first_elem)
                 else:
-                    #print('I')
+                    print('I')
                     #print(first_elem)
                     drone.set_position(first_elem)
                     self.priority_district.put(first_elem)
@@ -68,16 +69,20 @@ class Delivery :
                 #print('G')           
                 self.priority_district.put(item)
     
+
     def assign_packages_to_drones(self):
         #TODO appeler deux fois
+        counter = 0
         for drone in self.drones :
             if len(drone.get_packages()) == 0:
                 district = drone.get_current_position()
                 #print(district, "Package : ",len(district.packages))
                 if len(district.packages) > 0:
 
+                    print("counter",counter)
                     first_package = district.packages.popleft()
                     print(first_package)
+                    counter+=1
                     if drone.get_max_weight() >= first_package.get_weight():
                         drone.add_package(first_package)
                     else:

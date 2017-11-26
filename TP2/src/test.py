@@ -2,8 +2,6 @@ from district import District
 from delivery import Delivery
 from drone import *
 from queue import PriorityQueue
-
-
 import queue
 
 delivery = Delivery()
@@ -27,11 +25,14 @@ print("Number of pack: ", len(district.packages))
 #delivery.drones[0].curent_position = district
 
 #print(delivery.drones[0].curent_position)
-
+#delivery.deliver_packages()
 delivery.assign_packages_to_drones()
 
 for drone in delivery.drones:
     print("Pos: ", drone.curent_position, drone.packages)
+
+#delivery.deliver_packages()
+
 
 # print(delivery.drones[14].get_current_position())
 # print(delivery.drones[14].packages)
