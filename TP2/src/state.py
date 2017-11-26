@@ -9,6 +9,7 @@ class State :
     def  __init__(self,value=''):
         self.next_states = []
         self.value = value
+        self.name = ""
 
     def add_state(self,state):
         self.next_states.append(state)

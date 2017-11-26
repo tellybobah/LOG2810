@@ -50,27 +50,20 @@ class Delivery :
             temp_useless_district = []
             while True:
                 first_elem = self.priority_district.get_nowait()
-                #print(first_elem)
                 if len(first_elem.packages) != 0:
-                    #print("Debug", *first_elem.packages, sep='\n')
                     if drone.max_weight >= first_elem.packages[0].get_weight():
-                        #print('A', first_elem)
                         drone.set_position(first_elem)
                         first_elem.visit()
                         self.priority_district.put(first_elem)
                         break
                     else:
-                        #print('C')
                         temp_useless_district.append(first_elem)
                 else:
-                    #print('I')
-                    #print(first_elem)
                     drone.set_position(first_elem)
                     self.priority_district.put(first_elem)
                     break
                 
-            for item in temp_useless_district:
-                #print('G')           
+            for item in temp_useless_district:         
                 self.priority_district.put(item)
     
 
@@ -80,17 +73,13 @@ class Delivery :
         for drone in self.drones :
             if len(drone.get_packages()) == 0:
                 district = drone.get_current_position()
-                #print(district, "Package : ",len(district.packages))
                 if len(district.packages) > 0:
-
-                    print("counter",counter)
                     first_package = district.packages.popleft()
-                    print(first_package)
                     counter+=1
                     if drone.get_max_weight() >= first_package.get_weight():
                         drone.add_package(first_package)
                     else:
-                        first_package.appendleft(first_package)
+                        district.packages.appendleft(first_package)
                         continue
 
                     remaining_weight_to_fill = drone.get_max_weight()-first_package.get_weight()
@@ -152,9 +141,19 @@ class Delivery :
         print("-------------------------")
         # TODO: Ajouter une liste de cartier avec le nombre de drones repartis
         print("Repartition de la flotte")
+        print("Quartier | Drones faible capacite | Drones forte capacite")
+        for district in self.automaton.get_all_districts():
+            print(district.name, " | ",self.count_drones_by_cat_district(district, 1000), "\t\t\t  | ", self.count_drones_by_cat_district(district, 5000))
 
         print('Nombre Moyen de Colis par Drone :')
         print('Faible Capacite: ', self.drone_light_delivery_query/10)
         print('Forte Capacite: ' , self.drone_heavy_delivery_query/5)
         print("-------------------------")
         print('\n')
+
+    def count_drones_by_cat_district(self, district, max_weight):
+        counter = 0
+        for drone in self.drones:
+            if drone.get_current_position() == district and drone.get_max_weight() == max_weight:
+                counter += 1
+        return counter

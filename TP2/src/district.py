@@ -11,6 +11,7 @@ class District :
         self.packages = deque()
         self.last_visit_counter = 0 
         self.value = value
+        self.name = ""
 
     def add_package(self, weight, destination):
         self.packages.append(Package(weight,destination))
@@ -25,7 +26,7 @@ class District :
         return 0.6*len(self.packages) + 0.4* self.last_visit_counter
 
     def __str__(self):
-        return "District : " + self.value
+        return "District : " + self.name
 
     def __lt__(self, other):
         return self.calculate_score() > other.calculate_score()

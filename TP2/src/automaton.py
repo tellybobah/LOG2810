@@ -49,7 +49,10 @@ class Automaton :
                             self.districts_list.append(inserted_state)
                         else:
                             inserted_state = State(node)
-                        current_node.next_states.append(inserted_state)
+                        current_node.add_state(inserted_state)
+                        inserted_state.name = current_node.name + node
+                        if counter == 2:
+                            inserted_state.name += " "
                         current_node = inserted_state
                     counter = counter + 1
 

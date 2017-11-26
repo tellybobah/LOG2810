@@ -19,14 +19,16 @@ def main():
             user_txt_input = input()
             if delivery.create_automaton(user_txt_input):
                 print('Arbre d\'adresse cree')
+                delivery.equilibrate_swarm()
             else:
                 print('Erreur dans le nom du fichier')
         elif user_input == 'b':
             print("Entrez le fichier qui de la requete")
             user_txt_input = input()
             if delivery.parse_request(user_txt_input):
-                delivery.equilibrate_swarm()
+                delivery.assign_packages_to_drones()
                 delivery.deliver_packages()
+                delivery.equilibrate_swarm()
             else:
                 print('Erreur dans le nom du fichier')
             
