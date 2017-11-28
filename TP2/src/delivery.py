@@ -24,10 +24,10 @@ class Delivery :
         """
         initialisation : methode qui fait la creation de 15 drones, soit 10 de 1000g et 5 de 5000g
         """
-
+        #Creation des drones de faible capacite
         for i in range(10):
             self.drones.append(Drone(1000))
-
+        #Creation des drone de fortes capacite
         for i in range(5):
             self.drones.append(Drone(5000))
 
@@ -37,6 +37,8 @@ class Delivery :
         """  
         self.assign_packages_to_drones()
         self.assign_packages_to_drones() # Assure que les drones 1KG sont bien utilises si le premier colis est plus lourd
+
+        #Deposer les colis des drone pour cycle en cours
         for drone in self.drones : 
             if len(drone.get_packages())!=0:
                 drone.set_position(drone.get_packages()[0].get_destination())
@@ -46,7 +48,7 @@ class Delivery :
                     self.drone_light_delivery_query +=1
                 else:
                     self.drone_heavy_delivery_query+=1
-
+        #Mise a jours des valeurs pour la fonction print_statistic
         for district in self.automaton.get_all_districts():
             if self.count_drones_by_cat_district(district, 1000) == 0 and self.count_drones_by_cat_district(district, 5000) == 0:
                 district.last_visit_counter += 1
@@ -63,6 +65,7 @@ class Delivery :
                 continue
 
             temp_useless_district = []
+            #Tant que le drone n'est pas assigne a un quartier 
             while True:
                 first_elem = self.priority_district.get_nowait()
                 if len(first_elem.packages) != 0:
@@ -103,6 +106,7 @@ class Delivery :
                     remaining_weight_to_fill = drone.get_max_weight()-first_package.get_weight()
 
                     to_remove = []
+                    
                     for item in district.packages:
                         if item.get_destination() == first_package.get_destination():
                             if(remaining_weight_to_fill >= item.get_weight()):

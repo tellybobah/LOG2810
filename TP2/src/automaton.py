@@ -63,8 +63,7 @@ class Automaton :
 
     def verify_adress(self, adress):
         """
-        verify_adress : verifie qu'une adresse est bien valide selon l'automate
-            :param self: 
+        verify_adress : verifie qu'une adresse est bien valide selon l'automate 
             :param adress: adresses qui va etre verifiee
         """   
         counter = 0
@@ -86,7 +85,6 @@ class Automaton :
     def get_adress(self, adress):
         """
         get_adress : retourne le noeud final de l'adresse passee en parametre si elle existe
-            :param self: 
             :param adress: adresse qui va etre verifee
         """   
         counter = 0
@@ -112,7 +110,6 @@ class Automaton :
     def get_all_districts(self):
         """
         get_all_districs : methode qui permet de retourner une liste de pointeurs d'adresse de destination
-            :param self: 
         """   
         return self.districts_list
         
