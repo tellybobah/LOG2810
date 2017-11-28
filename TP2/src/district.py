@@ -16,14 +16,14 @@ class District :
     def add_package(self, weight, destination):
         """
         add_packages :
-            :param weight: 
-            :param destination: 
+            :param weight: Le poids du colis a ajouter
+            :param destination: La destination du colis a ajouter
         """   
         self.packages.append(Package(weight,destination))
 
     def get_last_visit_counter(self):
         """
-        get_last_visit_counter
+        get_last_visit_counter : methode qui retourne la derniere fois qu'un drone est passe par l'adresse
              
         """  
         return self.last_visit_counter

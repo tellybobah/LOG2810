@@ -22,7 +22,7 @@ class Delivery :
 
     def initialisation(self):
         """
-        initialisation : initialise la file de priorite en ordre inverse
+        initialisation : methode qui fait la creation de 15 drones, soit 10 de 1000g et 5 de 5000g
         """
 
         for i in range(10):
@@ -33,7 +33,7 @@ class Delivery :
 
     def deliver_packages(self):
         """
-        deliver_packages
+        deliver_packages : methode qui fait la distribution de colis en assignant les colis aux drones
         """  
         self.assign_packages_to_drones()
         self.assign_packages_to_drones() # Assure que les drones 1KG sont bien utilises si le premier colis est plus lourd
@@ -50,14 +50,16 @@ class Delivery :
         for district in self.automaton.get_all_districts():
             if self.count_drones_by_cat_district(district, 1000) == 0 and self.count_drones_by_cat_district(district, 5000) == 0:
                 district.last_visit_counter += 1
+            else:
+                district.visit()
 
     def equilibrate_swarm(self):
         """
-        equilibrate_swarm
-             
+        equilibrate_swarm : methode qui permet de reequilibrer la distribution des drones sur les adresses
+                            disponibles en prenant en compte la cote de priorite de ces adresses             
         """  
         for drone in self.drones:
-            if len(drone.packages) != 0:
+            if len(drone.get_packages()) != 0:
                 continue
 
             temp_useless_district = []
@@ -82,7 +84,7 @@ class Delivery :
 
     def assign_packages_to_drones(self):
         """
-        assign_packages_to_drones
+        assign_packages_to_drones : methode qui permet d'assigner des colis aux drones
              
         """  
         counter = 0
@@ -114,6 +116,13 @@ class Delivery :
 
 
     def assign_package_to_district(self, from_adress, to_adress, mass):
+        """
+        assign_package_to_district: Methode qui permet d'assigner des colis a un adress
+
+            :param from_adress: l'adresse a ajouter le colis
+            :param to_adress: l'adresse de destination du colis
+            :param mass: le poids du colis
+        """  
         adress1 = self.automaton.get_adress(from_adress)
         adress2 = self.automaton.get_adress(to_adress)
         weight = int(mass)
@@ -124,9 +133,9 @@ class Delivery :
     
     def create_automaton(self, file_name):
         """
-        create_automaton:
+        create_automaton: Permet de verifier l'existance du fichier et d'appeler la methode d'automaton pour creer l'arbre
 
-            :param file_name: 
+            :param file_name: le nom du fichier a lequel on veut generer l'automate
         """   
         file_path = "../adress/" + file_name
         if os.path.exists(file_path):
@@ -140,8 +149,9 @@ class Delivery :
 
     def parse_request(self,file_name):
         """
-        parse_request 
-            :param file_name: 
+        parse_request : permet de lire un fichier de requetes tout en validant l'existance des adresses d'origine et de destionation
+            et en assignant les packets valides aux bons districts
+            :param file_name: le nom du fichier de requete
         """   
 
         file_path = "../request/" + file_name
@@ -161,7 +171,8 @@ class Delivery :
     
     def print_statistics(self):
         """
-        deliver_packages
+        print_statistics : methode qui permet d'afficher les statistiques de la livraison des drones ainsi que la
+                        disposition des drones dans les differents districts
              
         """  
 

@@ -4,7 +4,7 @@ class Drone :
     def __init__(self,max_weight):
         """
         __init__ : Constructeur de la classe drone
-            :param max_weight: 
+            :param max_weight: Poids maximal que le drone peut transporter
         """   
         self.curent_position = District()
         self.max_weight = max_weight
@@ -31,14 +31,14 @@ class Drone :
     def set_position(self,position):
         """
         set_position : methode qui modifie la valeur de l'attribut current_position
-            :param position: 
+            :param position: la position a laquelle nous voulons mettre le drone
         """   
         self.curent_position = position
 
     def add_package(self,package):
         """
-        add_package: 
-            :param package: 
+        add_package: Methode qui permet d'ajouter un colis au drone
+            :param package: Le colie a ajouter
         """   
         self.packages.append(package)
 

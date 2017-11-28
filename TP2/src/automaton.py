@@ -29,7 +29,7 @@ class Automaton :
                 if not line:
                     break
                 if not len(line) == 6:
-                    continue 
+                    continue
                 
                 current_node = self.initial_state
                 counter = 0
@@ -106,7 +106,7 @@ class Automaton :
 
     def get_all_districts(self):
         """
-        get_all_districs
+        get_all_districs : methode qui permet de retourner une liste de pointeurs d'adresse de destination
             :param self: 
         """   
         return self.districts_list
