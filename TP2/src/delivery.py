@@ -32,14 +32,11 @@ class Delivery :
             self.drones.append(Drone(5000))
 
     def deliver_packages(self):
-<<<<<<< HEAD
-        self.assign_packages_to_drones()
-        self.assign_packages_to_drones() # Assure que les drones 1KG sont bien utilises si le premier colis est plus lourd
-=======
         """
         deliver_packages
         """  
->>>>>>> 57015a834194ca140035882c68e914eb00c66a44
+        self.assign_packages_to_drones()
+        self.assign_packages_to_drones() # Assure que les drones 1KG sont bien utilises si le premier colis est plus lourd
         for drone in self.drones : 
             if len(drone.get_packages())!=0:
                 drone.set_position(drone.get_packages()[0].get_destination())
@@ -84,14 +81,10 @@ class Delivery :
     
 
     def assign_packages_to_drones(self):
-<<<<<<< HEAD
-=======
         """
         assign_packages_to_drones
              
         """  
-        #TODO appeler deux fois
->>>>>>> 57015a834194ca140035882c68e914eb00c66a44
         counter = 0
         for drone in self.drones :
             if len(drone.get_packages()) == 0:
