@@ -30,6 +30,11 @@ class Automaton :
                     break
                 if not len(line) == 6:
                     continue
+
+                if not (line[0].isupper() and line[2].isupper() and line[4].isupper()):
+                    continue
+                if not (line[1].isdigit() and line[3].isdigit() and line[5].isdigit()):
+                    continue
                 
                 current_node = self.initial_state
                 counter = 0
