@@ -32,8 +32,11 @@ class Delivery :
             self.drones.append(Drone(5000))
 
     def deliver_packages(self):
+        self.assign_packages_to_drones()
+        self.assign_packages_to_drones() # Assure que les drones 1KG sont bien utilises si le premier colis est plus lourd
         for drone in self.drones : 
             if len(drone.get_packages())!=0:
+                drone.set_position(drone.get_packages()[0].get_destination())
                 self.treated_query+=1
                 drone.packages = drone.packages[:-1]
                 if drone.get_max_weight() == 1000:
@@ -41,7 +44,9 @@ class Delivery :
                 else:
                     self.drone_heavy_delivery_query+=1
 
-        self.assign_packages_to_drones()
+        for district in self.automaton.get_all_districts():
+            if self.count_drones_by_cat_district(district, 1000) == 0 and self.count_drones_by_cat_district(district, 5000) == 0:
+                district.last_visit_counter += 1
 
     def equilibrate_swarm(self):
         for drone in self.drones:
@@ -69,7 +74,6 @@ class Delivery :
     
 
     def assign_packages_to_drones(self):
-        #TODO appeler deux fois
         counter = 0
         for drone in self.drones :
             if len(drone.get_packages()) == 0:
