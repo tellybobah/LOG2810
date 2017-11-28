@@ -105,5 +105,9 @@ class Automaton :
         return current_node
 
     def get_all_districts(self):
+        """
+        get_all_districs
+            :param self: 
+        """   
         return self.districts_list
         

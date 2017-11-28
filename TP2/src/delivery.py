@@ -32,8 +32,14 @@ class Delivery :
             self.drones.append(Drone(5000))
 
     def deliver_packages(self):
+<<<<<<< HEAD
         self.assign_packages_to_drones()
         self.assign_packages_to_drones() # Assure que les drones 1KG sont bien utilises si le premier colis est plus lourd
+=======
+        """
+        deliver_packages
+        """  
+>>>>>>> 57015a834194ca140035882c68e914eb00c66a44
         for drone in self.drones : 
             if len(drone.get_packages())!=0:
                 drone.set_position(drone.get_packages()[0].get_destination())
@@ -49,6 +55,10 @@ class Delivery :
                 district.last_visit_counter += 1
 
     def equilibrate_swarm(self):
+        """
+        equilibrate_swarm
+             
+        """  
         for drone in self.drones:
             if len(drone.packages) != 0:
                 continue
@@ -74,6 +84,14 @@ class Delivery :
     
 
     def assign_packages_to_drones(self):
+<<<<<<< HEAD
+=======
+        """
+        assign_packages_to_drones
+             
+        """  
+        #TODO appeler deux fois
+>>>>>>> 57015a834194ca140035882c68e914eb00c66a44
         counter = 0
         for drone in self.drones :
             if len(drone.get_packages()) == 0:
@@ -112,6 +130,11 @@ class Delivery :
            self.invalid_query += 1 
     
     def create_automaton(self, file_name):
+        """
+        create_automaton:
+
+            :param file_name: 
+        """   
         file_path = "../adress/" + file_name
         if os.path.exists(file_path):
             self.automaton.create_state_adress(file_path)
@@ -123,6 +146,11 @@ class Delivery :
         return False
 
     def parse_request(self,file_name):
+        """
+        parse_request 
+            :param file_name: 
+        """   
+
         file_path = "../request/" + file_name
         if os.path.exists(file_path):
             with open(file_path, "r") as f:
@@ -139,6 +167,11 @@ class Delivery :
         return True
     
     def print_statistics(self):
+        """
+        deliver_packages
+             
+        """  
+
         print('\n')
         print("-------------------------")
         print('Requetes Traitees :',self.treated_query)
