@@ -1,3 +1,7 @@
+"""
+@author: Boubacar, Abderahmane, Leandre
+"""
+
 from district import District
 class Drone : 
 
