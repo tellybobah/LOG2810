@@ -1,9 +1,0 @@
-a
-CodesPostaux.txt
-b
-requetesTest.txt
-c
-b
-requetesTest.txt
-c
-d

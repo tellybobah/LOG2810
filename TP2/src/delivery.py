@@ -198,6 +198,11 @@ class Delivery :
         print('\n')
 
     def count_drones_by_cat_district(self, district, max_weight):
+        """
+        count_drones_by_cat_district : Compte le nombre de drones par catégorie aux district
+            :param district: District dont on veut connaitre le nombre de drone
+            :param max_weight: categorie de drone dont on veut connaitre le nombre
+        """   
         counter = 0
         for drone in self.drones:
             if drone.get_current_position() == district and drone.get_max_weight() == max_weight:
