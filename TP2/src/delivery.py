@@ -92,12 +92,12 @@ class Delivery :
         """  
         counter = 0
         for drone in self.drones :
-            if len(drone.get_packages()) == 0:
+            if len(drone.get_packages()) == 0: # Verifie si le drone n'a pas deja des colis
                 district = drone.get_current_position()
-                if len(district.packages) > 0:
+                if len(district.packages) > 0: # Verifie si l'endroit ou il est possede des colis
                     first_package = district.packages.popleft()
                     counter+=1
-                    if drone.get_max_weight() >= first_package.get_weight():
+                    if drone.get_max_weight() >= first_package.get_weight(): # Verifie si le drone peut supporter le colis
                         drone.add_package(first_package)
                     else:
                         district.packages.appendleft(first_package)
@@ -107,7 +107,7 @@ class Delivery :
 
                     to_remove = []
                     
-                    for item in district.packages:
+                    for item in district.packages: # Regarde pour les autres colis ayant la meme destination et un poids acceptable pour le drone
                         if item.get_destination() == first_package.get_destination():
                             if(remaining_weight_to_fill >= item.get_weight()):
                                 remaining_weight_to_fill -= item.get_weight()
